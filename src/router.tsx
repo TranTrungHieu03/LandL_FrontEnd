@@ -31,7 +31,7 @@ const AppRoutes = () => {
       <Route path={ROUTES.VERIFY_CODE} element={<VerifyCodePage />} />,
       <Route path={ROUTES.SET_PASSWORD} element={<SetPasswordPage />} />,
       <Route path={ROUTES.ROOT} element={<HomeLayout />}>
-         <Route index element={<Navigate to={ROUTES.HOME} />} />,
+        {/* <Route index element={<Navigate to={ROUTES.HOME} />} />, */}
         <Route path={ROUTES.HOME} element={<HomePage />} />
       </Route>
       ,
