@@ -1,7 +1,10 @@
 import { Star } from 'lucide-react'
 import { Separator } from '@/components/atoms/ui/separator.tsx'
-
-const TruckInformation = () => {
+import { TOrderDetail } from '@/types/OrderDetailType.ts'
+interface Props {
+  order: TOrderDetail | null
+}
+const TruckInformation = ({ order }: Props) => {
   return (
     <div className={'flex  flex-col p-4'}>
       {/*<p className={'uppercase font-semibold text-orangeTheme text-lg justify-start my-2'}>Truck information</p>*/}

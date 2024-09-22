@@ -25,7 +25,7 @@ export interface ResponseProps<T = any> {
 
 const handleApiError = (error: AxiosError) => {
   const { response } = error
-  console.log(response)
+  console.log(response?.status)
   return response?.data as ResponseProps
 }
 
@@ -81,6 +81,27 @@ export const patch = async <T>(url: string, data: unknown): Promise<T | Response
 export const del = async <T>(url: string): Promise<T | ResponseProps> => {
   try {
     const response: AxiosResponse<T> = await api.delete<T>(url)
+    return response.data
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      handleApiError(error)
+    }
+    throw error
+  }
+}
+
+export const patchFormData = async <T>(url: string, data: unknown): Promise<T | ResponseProps> => {
+  try {
+    const accessToken = localStorage.getItem('accessToken')
+    const response: AxiosResponse<T> = await axios
+      .create({
+        baseURL: BASE_URL,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+      .patch<T>(url, data)
     return response.data
   } catch (error: unknown) {
     if (error instanceof AxiosError) {

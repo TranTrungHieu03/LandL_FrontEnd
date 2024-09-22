@@ -14,7 +14,7 @@ import formatLabel from '@/utils/formatLabel.ts'
 interface FormInputProps<T extends FieldValues> {
   classContent?: string
   name: Path<T>
-  type?: 'text' | 'number' | 'checkbox' | 'password'
+  type?: 'text' | 'number' | 'checkbox' | 'password' | 'file'
   placeholder?: string
   form: UseFormReturn<T>
   autoFocus?: boolean

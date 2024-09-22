@@ -5,12 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import auth from '@/services/authService'
 import { UserSignInGGType } from '@/schemas/userSchema.ts'
 import toast from 'react-hot-toast'
+import authService from '@/services/authService.ts'
+import { useAuth } from '@/context/authContext.tsx'
 
 const AuthCallbackPage = () => {
   const navigate = useNavigate()
   const { user } = useAuth0()
   const hasCreatedUser = useRef(false)
-
+  const { setAuth } = useAuth()
   const handleSignInWithGG = async (user: any) => {
     const data: UserSignInGGType = {
       email: user.email,
@@ -22,7 +24,10 @@ const AuthCallbackPage = () => {
     const response = await auth.loginWithGG({ data })
     if (response.success) {
       localStorage.setItem('accessToken', response?.result?.data as string)
-      localStorage.setItem('email', data.email)
+      const result = await authService.getUserInfo()
+      if (result.success) {
+        setAuth({ user: result.result?.data })
+      }
       toast.success(response?.result?.message as string)
     } else {
       toast.error(response?.result?.message as string)

@@ -13,13 +13,15 @@ import { useAuth } from '@/context/authContext.tsx'
 
 interface UserDropdownProps {
   avatar: string
+  handleChange: () => void
 }
 
-const UserDropdown = ({ avatar }: UserDropdownProps) => {
+const UserDropdown = ({ avatar, handleChange }: UserDropdownProps) => {
   const navigate = useNavigate()
   const { setAuth } = useAuth()
   const handleLogout = () => {
     localStorage.clear()
+    handleChange()
     setAuth({ user: undefined })
     navigate(ROUTES.ROOT)
   }

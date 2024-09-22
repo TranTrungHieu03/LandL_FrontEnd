@@ -25,7 +25,7 @@ const SearchInput = <T extends FieldValues>({
   setPlaceId
 }: SearchInputProps<T>) => {
   const input = form.watch(name)
-  const debouncedValue = useDebounce(input, 300)
+  const debouncedValue = useDebounce(input, 500)
   const [call, setCall] = useState(true)
 
   const [listAddress, setListAddress] = useState<null | []>(null)

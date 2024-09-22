@@ -2,9 +2,13 @@ import { Badge } from '@/components/atoms/ui/badge.tsx'
 import { NAVIGATIONS } from '@/contants/navigation.ts'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { cn } from '@/utils/cn.ts'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
 import UserDropdown from '@/components/organisms/Global/UserDropdown.tsx'
+import authService from '@/services/authService.ts'
+import { TUser } from '@/types/UserType.ts'
+import generateImage from '@/utils/generateAvatar.ts'
+import { Button } from '@/components/atoms/ui/button.tsx'
 
 interface HeaderProps {
   classContent?: string
@@ -13,6 +17,18 @@ interface HeaderProps {
 const Header = ({ classContent }: HeaderProps) => {
   const path = useLocation()
   const navigate = useNavigate()
+  const [user, setUser] = useState<TUser | null>(null)
+  const [isLogOut, setIsLogOut] = useState<boolean>(false)
+  const handleChange = () => {
+    setIsLogOut(true)
+  }
+  const getUser = async () => {
+    const response = await authService.getUserInfo()
+    setUser(response.result?.data ?? null)
+  }
+  useEffect(() => {
+    getUser()
+  }, [isLogOut])
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [path])
@@ -46,13 +62,19 @@ const Header = ({ classContent }: HeaderProps) => {
         >
           Create order
         </Link>
-        <div className={'flex gap-2 items-center'}>
-          <UserDropdown avatar={'https://github.com/shadcn.png'} />
-          <div className={'flex flex-col md:w-30'}>
-            <span className={'truncate text-sm font-semibold'}>Luu Nguyen</span>
-            <Badge className={'bg-orangeTheme hover:bg-orangeTheme/60 w-fit'}>Basic</Badge>
+        {user ? (
+          <div className={'flex gap-2 items-center'}>
+            <UserDropdown avatar={user?.avatar ?? generateImage(user?.userName ?? '')} handleChange={handleChange} />
+            <div className={'flex flex-col md:w-30'}>
+              <span className={'truncate text-sm font-semibold'}>{user?.userName}</span>
+              <Badge className={'bg-orangeTheme hover:bg-orangeTheme/60 w-fit'}>Basic</Badge>
+            </div>
           </div>
-        </div>
+        ) : (
+          <Button className={'bg-orangeTheme w-fit hover:bg-orangeTheme/90'} onClick={() => navigate(ROUTES.LOGIN)}>
+            Login
+          </Button>
+        )}
       </div>
     </div>
   )

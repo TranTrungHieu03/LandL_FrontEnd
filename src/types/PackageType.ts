@@ -3,7 +3,7 @@ export type TPackage = {
   productName: string
   quantity: number
   productDescription: string
-  totalDimension: string
+  totalDismension: string
   weight: number
   image: string
   senderId: number

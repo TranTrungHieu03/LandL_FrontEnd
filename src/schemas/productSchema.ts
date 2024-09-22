@@ -73,13 +73,25 @@ export type ConfirmProductType = {
   totalAmount: number
 }
 
-export const UpdateProductSchema = z.object({
-  productName: z
-    .string({
-      required_error: 'Product Name is required'
-    })
-    .min(1, 'Product Name is required'),
-  productDescription: z.string({ required_error: 'Product Name is required' }).min(1, 'Product Description is required')
-})
+export const UpdateProductSchema = z
+  .object({
+    productName: z
+      .string({
+        required_error: 'Product Name is required'
+      })
+      .min(1, 'Product Name is required'),
+
+    image: z.instanceof(File, { message: 'Invalid file format' }),
+    orderDetailId: z.string(),
+    productDescription: z
+      .string({
+        required_error: 'Product Description is required'
+      })
+      .min(1, 'Product Description is required')
+  })
+  .refine((data) => data.image instanceof File, {
+    message: 'Image of product must be provided',
+    path: ['image']
+  })
 
 export type UpdateProductType = z.infer<typeof UpdateProductSchema>

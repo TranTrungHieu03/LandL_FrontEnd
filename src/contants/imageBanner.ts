@@ -16,7 +16,7 @@ export const IMAGES_SIGNUP = [
 export const IMAGES_LOGIN = [
   {
     id: 1,
-    url: '/login-1.png'
+    url: '/src/assets/images/1-01.jpg'
   },
   {
     id: 2,

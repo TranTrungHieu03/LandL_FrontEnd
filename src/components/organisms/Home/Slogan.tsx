@@ -1,5 +1,5 @@
 import { Button } from '@/components/atoms/ui/button.tsx'
-import { ArrowUpRight } from 'lucide-react'
+import { Navigation } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
 
@@ -19,12 +19,12 @@ const Slogan = () => {
       </div>
       <Button
         className={
-          'w-fit rounded-none text-lg font-semibold tracking-tight bg-orangeTheme hover:bg-orangeTheme/90 px-4 flex items-center space-x-2'
+          'w-fit rounded-none capitalize text-lg  cursor-pointer gap-2 font-bold tracking-tight bg-orangeTheme hover:bg-orangeTheme/90 px-4 flex items-center space-x-2'
         }
         onClick={() => navigate(ROUTES.CREATE_ORDER)}
       >
         Try now
-        <ArrowUpRight size={26} />
+        <Navigation size={22} strokeWidth={1} />
       </Button>
     </div>
   )

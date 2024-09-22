@@ -8,7 +8,6 @@ import OptionFormFooter from '@/components/molecules/OptionFormFooter.tsx'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
-import auth from '@/services/authService.ts'
 import toast from 'react-hot-toast'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
 import Loading from '@/components/templates/Loading.tsx'
@@ -26,10 +25,10 @@ const LoginForm = () => {
       password: ''
     }
   })
-  const {setAuth} = useAuth()
+  const { setAuth } = useAuth()
   const onSubmit: SubmitHandler<UserLoginType> = async (data: UserLoginType) => {
     setLoading(true)
-    const response = await auth.login(data)
+    const response = await authService.login(data)
     setLoading(false)
     if (response.success) {
       localStorage.setItem('accessToken', response?.result?.data as string)

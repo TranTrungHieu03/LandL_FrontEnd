@@ -2,17 +2,17 @@ import { createContext, ReactNode, useContext, useState } from 'react'
 import { TOrderDetail } from '@/types/OrderDetailType.ts'
 
 interface DeliveryContextType {
-  status: number
+  status?: number
   setStatus: (status: number) => void
-  order: TOrderDetail | null
+  order?: TOrderDetail | null
   setOrder: (order: TOrderDetail) => void
 }
 
 const DeliveryContext = createContext<DeliveryContextType | undefined>(undefined)
 
 export const DeliveryProvider = ({ children }: { children: ReactNode }) => {
-  const [status, setStatus] = useState<DeliveryContextType['status']>(1)
-  const [order, setOrder] = useState<DeliveryContextType['order'] | null>(null)
+  const [status, setStatus] = useState<DeliveryContextType['status']>(0)
+  const [order, setOrder] = useState<DeliveryContextType['order']>(null)
   return <DeliveryContext.Provider value={{ status, setStatus, order, setOrder }}>{children}</DeliveryContext.Provider>
 }
 export const useDelivery = () => {

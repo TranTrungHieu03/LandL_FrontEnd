@@ -1,4 +1,4 @@
-import { get, patch, post, ResponseProps } from '@/services/root.ts'
+import { get, patch, patchFormData, post, ResponseProps } from '@/services/root.ts'
 import { ConfirmProductType, SearchProductWithDistanceType } from '@/schemas/productSchema.ts'
 import { UpdateInfoType } from '@/schemas/userSchema.ts'
 
@@ -46,4 +46,12 @@ interface UpdateDeliveryInformationProps {
 
 export const updateDeliveryInformation = async ({ data }: UpdateDeliveryInformationProps): Promise<ResponseProps> => {
   return await patch('Order/UpdateDeliveryInfo', data)
+}
+
+interface UpdateProductInformationProps {
+  data: FormData
+}
+
+export const updateProductInformation = async ({ data }: UpdateProductInformationProps): Promise<ResponseProps> => {
+  return await patchFormData('Order/UpdateProductInfo', data)
 }
