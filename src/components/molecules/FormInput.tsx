@@ -18,7 +18,7 @@ interface FormInputProps<T extends FieldValues> {
   placeholder?: string
   form: UseFormReturn<T>
   autoFocus?: boolean
-  isDisable?:boolean
+  isDisable?: boolean
 }
 
 const FormInput = <T extends FieldValues>({

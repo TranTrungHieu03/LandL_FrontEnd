@@ -5,7 +5,7 @@ interface AuthContextType {
   auth: {
     user?: TUser
   }
-  setAuth: (auth: { user: TUser }) => void
+  setAuth: (auth: { user?: TUser }) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)

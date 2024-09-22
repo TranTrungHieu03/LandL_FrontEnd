@@ -12,7 +12,6 @@ const TruckInformation = () => {
             <p className={'col-span-2'}>Do Minh Nghĩa</p>
             <p className={'col-span-2'}>04847 76 3623</p>
           </div>
-        
         </div>
         <div className={'cols-span-2'}>
           <div className={'flex justify-between'}>
@@ -23,7 +22,7 @@ const TruckInformation = () => {
             </div>
           </div>
           <Separator className={'my-3'} />
-          
+
           <div className={'flex flex-col gap-3'}>
             <div className={'grid grid-cols-3'}>
               <p className={'col-span-1 font-medium'}>Payload Capacity</p>

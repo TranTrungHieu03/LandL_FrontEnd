@@ -8,6 +8,7 @@ import TableOrder from '@/components/organisms/OrderDetail/TableOrder.tsx'
 const MyOrderPage = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [orderList, setOrderList] = useState<TOrder[]>([])
+  
   const getOrder = async () => {
     setLoading(true)
     const response = await getAllOrderByUserId()

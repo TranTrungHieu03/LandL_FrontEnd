@@ -4,10 +4,10 @@ export type TDeliveryInfoDetail = {
   senderName: string
   receiverPhone: string
   senderPhone: string
-  deliveryLocation: string
+  deliveryLocaTion: string
   longDelivery: string
   latDelivery: string
-  pickupLocation: string
+  pickUpLocation: string
   longPickup: string
   latPickup: string
   orderDate: string

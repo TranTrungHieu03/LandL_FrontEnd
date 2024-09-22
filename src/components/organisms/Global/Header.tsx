@@ -18,7 +18,7 @@ const Header = ({ classContent }: HeaderProps) => {
   }, [path])
   return (
     <div className={cn('bg-transparent px-5 h-19 py-2 justify-between flex text-white', classContent)}>
-      <div className={'flex gap-2 items-center backdrop-blur-lg cursor-pointer'} onClick={() => navigate(ROUTES.HOME)}>
+      <div className={'flex gap-2 items-center backdrop-blur-lg cursor-pointer'} onClick={() => navigate(ROUTES.ROOT)}>
         <img src={'/logoLL.png'} alt={'logo'} className={'w-14 h-14'} />
         <span className={'font-black tracking-tight text-orangeTheme text-lg'}>L&L COMPANY</span>
       </div>

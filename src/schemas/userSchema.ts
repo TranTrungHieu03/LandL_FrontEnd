@@ -134,11 +134,12 @@ export const UserSignInGGSchema = z.object({
 export type UserSignInGGType = z.infer<typeof UserSignInGGSchema>
 
 export const UpdateInfoSchema = z.object({
-  senderName: z.string({}).min(1,"Sender name is required"),
-  senderPhone: z.string({}).min(10, "Sender phone number is required"),
-  receiverName: z.string({}).min(1,"Receiver name is required"),
-  receiverPhone: z.string({}).min(10, "Receiver phone number is required"),
+  senderName: z.string({}).min(1, 'Sender name is required'),
+  senderPhone: z.string({}).min(10, 'Sender phone number is required'),
+  receiverName: z.string({}).min(1, 'Receiver name is required'),
+  receiverPhone: z.string({}).min(10, 'Receiver phone number is required'),
+  orderDetailId: z.string(),
+  deliveryInfoId: z.string()
 })
 
 export type UpdateInfoType = z.infer<typeof UpdateInfoSchema>
-

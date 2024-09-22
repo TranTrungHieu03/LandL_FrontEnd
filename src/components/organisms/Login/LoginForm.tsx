@@ -5,17 +5,20 @@ import FormInput from '@/components/molecules/FormInput.tsx'
 import { Button } from '@/components/atoms/ui/button.tsx'
 import { Separator } from '@/components/atoms/ui/separator.tsx'
 import OptionFormFooter from '@/components/molecules/OptionFormFooter.tsx'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import auth from '@/services/authService.ts'
 import toast from 'react-hot-toast'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
 import Loading from '@/components/templates/Loading.tsx'
+import authService from '@/services/authService.ts'
+import { useAuth } from '@/context/authContext.tsx'
 
 const LoginForm = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const form = useForm<UserLoginType>({
     resolver: zodResolver(UserLoginSchema),
     defaultValues: {
@@ -23,14 +26,19 @@ const LoginForm = () => {
       password: ''
     }
   })
+  const {setAuth} = useAuth()
   const onSubmit: SubmitHandler<UserLoginType> = async (data: UserLoginType) => {
     setLoading(true)
     const response = await auth.login(data)
     setLoading(false)
     if (response.success) {
       localStorage.setItem('accessToken', response?.result?.data as string)
+      const result = await authService.getUserInfo()
+      if (result.success) {
+        setAuth({ user: result.result?.data })
+      }
       toast.success(response?.result?.message as string)
-      navigate(ROUTES.HOME)
+      location?.state?.from !== undefined ? navigate(-1) : navigate(ROUTES.ROOT)
     } else {
       toast.error(response?.result?.message as string)
     }

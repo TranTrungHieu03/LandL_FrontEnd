@@ -2,7 +2,7 @@ export const NAVIGATIONS = [
   {
     id: 1,
     title: 'Home',
-    path: '/home'
+    path: '/'
   },
   // {
   //   id: 2,

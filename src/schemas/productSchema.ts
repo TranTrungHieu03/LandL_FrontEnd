@@ -74,10 +74,12 @@ export type ConfirmProductType = {
 }
 
 export const UpdateProductSchema = z.object({
-  productName: z.string({
-    required_error: 'Product Name is required'
-  }).min(1, "Product Name is required"),
-  productDescription: z.string({required_error: 'Product Name is required'}).min(1, "Product Description is required"),
+  productName: z
+    .string({
+      required_error: 'Product Name is required'
+    })
+    .min(1, 'Product Name is required'),
+  productDescription: z.string({ required_error: 'Product Name is required' }).min(1, 'Product Description is required')
 })
 
 export type UpdateProductType = z.infer<typeof UpdateProductSchema>

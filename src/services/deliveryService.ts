@@ -1,5 +1,6 @@
-import { post, get, ResponseProps } from '@/services/root.ts'
+import { get, patch, post, ResponseProps } from '@/services/root.ts'
 import { ConfirmProductType, SearchProductWithDistanceType } from '@/schemas/productSchema.ts'
+import { UpdateInfoType } from '@/schemas/userSchema.ts'
 
 interface GetPriceProps {
   data: SearchProductWithDistanceType
@@ -20,7 +21,7 @@ export const createOrder = async ({ data, listCost }: CreateOrderProps): Promise
 }
 
 export const getAllOrderByUserId = async (): Promise<ResponseProps> => {
-  return await get('Order/GetAll')
+  return await get('Order/GetOrderByUserId')
 }
 
 interface GetOrderByOrderIdProps {
@@ -37,4 +38,12 @@ interface GetOrderDetailByOrderIdProps {
 
 export const getOrderDetailByOrderId = async ({ id }: GetOrderDetailByOrderIdProps): Promise<ResponseProps> => {
   return await get(`Order/GetOrderDetailByOrderId?orderId=${id}`)
+}
+
+interface UpdateDeliveryInformationProps {
+  data: UpdateInfoType
+}
+
+export const updateDeliveryInformation = async ({ data }: UpdateDeliveryInformationProps): Promise<ResponseProps> => {
+  return await patch('Order/UpdateDeliveryInfo', data)
 }

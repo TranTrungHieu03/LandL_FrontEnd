@@ -19,6 +19,7 @@ import toast from 'react-hot-toast'
 import PriceDialog from '@/components/organisms/Service/PriceDialog.tsx'
 import { getDirection, getLocationByPlaceId } from '@/services/mapService.ts'
 import { LngLat } from 'mapbox-gl'
+import { useAuth } from '@/context/authContext.tsx'
 
 const SearchElement = () => {
   const [price, setPrice] = useState<number>(0)
@@ -27,7 +28,7 @@ const SearchElement = () => {
   const [placeIdSource, setPlaceIdSource] = useState<string>('')
   const [placeIdDestination, setPlaceIdDestination] = useState<string>('')
   const [infoPriceList, setInfoPriceList] = useState<any>({})
-  const email = localStorage.getItem('email');
+  const { auth } = useAuth()
   const form = useForm<SearchProductType>({
     resolver: zodResolver(SearchProductSchema),
     defaultValues: {
@@ -79,7 +80,7 @@ const SearchElement = () => {
         longTo: lngLatDestination.lng.toString(),
         latTo: lngLatDestination.lat.toString(),
         pickupTime: expectedData.time,
-        email: email,
+        email: auth?.user?.email,
         totalAmount: response?.result?.data?.vehicleCost[response?.result?.data?.vehicleTypes[0]?.vehicleTypeId],
         vehicleTypeId: response?.result?.data?.vehicleTypes[0]?.vehicleTypeId.toString() as string
       })

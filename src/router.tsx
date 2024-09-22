@@ -6,7 +6,6 @@ import ForgotPasswordPage from '@/components/pages/ForgotPassword/ForgotPassword
 import VerifyCodePage from '@/components/pages/VerifyCode/VerifyCodePage.tsx'
 import SetPasswordPage from '@/components/pages/SetPassword/SetPasswordPage.tsx'
 import HomeLayout from '@/components/templates/HomeLayout.tsx'
-import HomePage from '@/components/pages/Home/HomePage.tsx'
 import MainLayout from '@/components/templates/MainLayout.tsx'
 import ServicePage from '@/components/pages/Service/ServicePage.tsx'
 import CostPage from '@/components/pages/Cost/CostPage.tsx'
@@ -30,11 +29,7 @@ const AppRoutes = () => {
       <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />,
       <Route path={ROUTES.VERIFY_CODE} element={<VerifyCodePage />} />,
       <Route path={ROUTES.SET_PASSWORD} element={<SetPasswordPage />} />,
-      <Route path={ROUTES.ROOT} element={<HomeLayout />}>
-        {/* <Route index element={<Navigate to={ROUTES.HOME} />} />, */}
-        <Route path={ROUTES.HOME} element={<HomePage />} />
-      </Route>
-      ,
+      <Route path={ROUTES.ROOT} element={<HomeLayout />} />,
       <Route path={ROUTES.ROOT} element={<MainLayout />}>
         <Route path={ROUTES.CREATE_ORDER} element={<ServicePage />} />,
         <Route path={ROUTES.COST} element={<CostPage />} />,
@@ -46,7 +41,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.ORDER_DETAIL_ID} element={<OrderDetailPage />} />,
       </Route>
       ,<Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}></Route>
-      <Route path='*' element={<Navigate to='/home' />} />
+      <Route path='*' element={<Navigate to='/' />} />
     </Routes>
   )
 }

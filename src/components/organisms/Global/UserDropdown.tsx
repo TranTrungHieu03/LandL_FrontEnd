@@ -9,6 +9,7 @@ import UserAvatar from '@/components/atoms/UserAvatar.tsx'
 import { LogOut, Truck, UserPen } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
+import { useAuth } from '@/context/authContext.tsx'
 
 interface UserDropdownProps {
   avatar: string
@@ -16,9 +17,11 @@ interface UserDropdownProps {
 
 const UserDropdown = ({ avatar }: UserDropdownProps) => {
   const navigate = useNavigate()
+  const { setAuth } = useAuth()
   const handleLogout = () => {
     localStorage.clear()
-    navigate(ROUTES.HOME)
+    setAuth({ user: undefined })
+    navigate(ROUTES.ROOT)
   }
 
   return (

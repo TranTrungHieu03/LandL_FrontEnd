@@ -10,17 +10,17 @@ import {
 } from '@/components/atoms/ui/alert-dialog.tsx'
 import { formatCurrency } from '@/utils/formatCurrency.ts'
 import { ConfirmProductType } from '@/schemas/productSchema.ts'
-import { useDelivery } from '@/context/deliveryContext.tsx'
 import { createOrder } from '@/services/deliveryService.ts'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Loading from '@/components/templates/Loading.tsx'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '@/context/authContext.tsx'
 
 interface Props {
   price: number
-  confirmData: ConfirmProductType | {}
+  confirmData: ConfirmProductType | object
   open: boolean
   onClose: () => void
   infoPriceList: any
@@ -29,9 +29,14 @@ interface Props {
 const PriceDialog = ({ price, confirmData, open, onClose, infoPriceList }: Props) => {
   const [loading, setLoading] = useState<boolean>(false)
   const navigate = useNavigate()
-  const { status, setStatus } = useDelivery()
+  // const { status, setStatus } = useDelivery()
+  const { auth } = useAuth()
 
   const handleConfirm = async () => {
+    if (!auth.user) {
+      localStorage.setItem('dataSearch', JSON.stringify(confirmData))
+      navigate(ROUTES.LOGIN, { state: { from: location.pathname } })
+    }
     setLoading(true)
     const response = await createOrder({
       data: confirmData as ConfirmProductType,
@@ -40,7 +45,7 @@ const PriceDialog = ({ price, confirmData, open, onClose, infoPriceList }: Props
     setLoading(false)
     onClose()
     if (response.success) {
-      setStatus(status + 1)
+      // setStatus(status + 1)
       toast.success(response?.result?.message as string)
       navigate(ROUTES.MY_ORDER)
     } else {

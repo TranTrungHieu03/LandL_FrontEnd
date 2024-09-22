@@ -22,7 +22,7 @@ const AuthCallbackPage = () => {
     const response = await auth.loginWithGG({ data })
     if (response.success) {
       localStorage.setItem('accessToken', response?.result?.data as string)
-      localStorage.setItem('email', data.email);
+      localStorage.setItem('email', data.email)
       toast.success(response?.result?.message as string)
     } else {
       toast.error(response?.result?.message as string)
