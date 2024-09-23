@@ -167,7 +167,7 @@ const OrderDetailPage = () => {
             </AccordionItem>
           )}
         </Accordion>
-        {status > 1 && (
+        {status === 2 && (
           <Button className={'bg-orangeTheme hover:bg-orangeTheme/90 cursor-pointer mx-20 '} onClick={onConfirmOrder}>
             Paid for service
           </Button>
