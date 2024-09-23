@@ -13,8 +13,7 @@ import { Calendar } from '@/components/atoms/ui/calendar.tsx'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/atoms/ui/popover.tsx'
 import { Button } from '@/components/atoms/ui/button.tsx'
 import { cn } from '@/utils/cn.ts'
-import { addDays, subDays } from 'date-fns'
-import { formatDate } from '@/utils/formatDate.ts'
+import { addDays, format, subDays } from 'date-fns'
 
 interface FormInputProps<T extends FieldValues> {
   classContent?: string
@@ -44,7 +43,7 @@ const FormDatePicker = <T extends FieldValues>({
                   variant={'outline'}
                   className={cn('w-full pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}
                 >
-                  {field.value ? formatDate(field.value) : <span>Pick a date</span>}
+                  {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
                   <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                 </Button>
               </FormControl>

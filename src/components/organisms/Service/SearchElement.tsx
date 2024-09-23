@@ -118,7 +118,7 @@ const SearchElement = () => {
           <FormInput
             name={'weight'}
             form={form}
-            placeholder={'Ex: 10000g'}
+            placeholder={'Ex: 100kg'}
             classContent={'col-span-2'}
             type={'number'}
           />

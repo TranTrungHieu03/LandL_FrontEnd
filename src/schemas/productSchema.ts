@@ -95,3 +95,12 @@ export const UpdateProductSchema = z
   })
 
 export type UpdateProductType = z.infer<typeof UpdateProductSchema>
+
+export type ConfirmOrderType = {
+  orderDetailId: number
+  totalAmount: string
+  request: {
+    returnUrl: string
+    cancelUrl: string
+  }
+}

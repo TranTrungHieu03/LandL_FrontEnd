@@ -1,10 +1,10 @@
 import ProcessHeader from '@/components/organisms/MyOrder/ProcessHeader.tsx'
 // import WaitingConfirm from '@/components/organisms/MyOrder/WaitingConfirm.tsx'
 import TruckInformation from '@/components/organisms/MyOrder/TruckInformation.tsx'
-import { useNavigate, useParams } from 'react-router-dom'
+import { redirect, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Loading from '@/components/templates/Loading.tsx'
-import { getOrderDetailByOrderId } from '@/services/deliveryService.ts'
+import { confirmOrder, getOrderByOrderId, getOrderDetailByOrderId } from '@/services/deliveryService.ts'
 import toast from 'react-hot-toast'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
 import { processStateEnum, ProcessStateEnumType } from '@/contants/processState.ts'
@@ -17,16 +17,36 @@ import WaitingConfirm from '@/components/organisms/MyOrder/WaitingConfirm.tsx'
 import { formatCurrency } from '@/utils/formatCurrency.ts'
 import MapCustom from '@/components/organisms/Map/MapCustom.tsx'
 import { formatDate } from '@/utils/formatDate.ts'
-import OrderCompleteDialog from '@/components/organisms/MyOrder/OrderCompleteDialog.tsx'
+import { Button } from '@/components/atoms/ui/button.tsx'
+import { ConfirmOrderType } from '@/schemas/productSchema.ts'
+import { TUser } from '@/types/UserType.ts'
 
 const OrderDetailPage = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [isUpdatedOrder, setIsUpdatedOrder] = useState<boolean>(false)
   const { id } = useParams()
   const navigate = useNavigate()
+  const [driver, setDriver] = useState<TUser | null>(null)
 
   const [status, setStatus] = useState<number>(0)
   const [order, setOrder] = useState<TOrderDetail | null>(null)
+
+  const getDriver = async () => {
+    if (id === '' || id === undefined) {
+      toast.loading('Something went wrong. Please try again.')
+      navigate(ROUTES.MY_ORDER)
+      return
+    }
+    setLoading(true)
+    const response = await getOrderByOrderId({ id })
+    setLoading(false)
+    if (response.success) {
+      const data: TUser = response?.result?.data.orderDriver
+      setDriver(data)
+    } else {
+      toast.error(response?.result?.message as string)
+    }
+  }
   const getInfo = async () => {
     if (id === '' || id === undefined) {
       toast.loading('Something went wrong. Please try again.')
@@ -48,9 +68,30 @@ const OrderDetailPage = () => {
   }
   useEffect(() => {
     getInfo()
+    getDriver()
   }, [id, isUpdatedOrder])
   const setOnChange = () => {
     setIsUpdatedOrder(!isUpdatedOrder)
+  }
+  const onConfirmOrder = async () => {
+    setLoading(true)
+    const data: ConfirmOrderType = {
+      orderDetailId: order?.orderDetailId ?? 0,
+      totalAmount: Math.floor(order?.totalPrice ?? 0).toString() ?? '0',
+      request: {
+        returnUrl: `${import.meta.env.VITE_CLIENT_URL}${ROUTES.ORDER_DETAIL}/${order?.orderDetailId}`,
+        cancelUrl: `${import.meta.env.VITE_CLIENT_URL}${ROUTES.ORDER_DETAIL}/${order?.orderDetailId}`
+      }
+    }
+    console.log(data)
+    const response = await confirmOrder({ data })
+    setLoading(false)
+    if (response.success) {
+      console.log(response.result?.data)
+      window.location.href = response.result?.data
+    } else {
+      toast.error(response?.result?.message as string)
+    }
   }
   return (
     <>
@@ -85,7 +126,7 @@ const OrderDetailPage = () => {
           </div>
         </div>
         <Accordion type='multiple' className='mx-14 ' defaultValue={['item-0', 'item-1', 'item-2']}>
-          {status === 1 && (
+          {status >= 1 && (
             <AccordionItem value='item-0'>
               <AccordionTrigger>
                 <p className={'font-medium text-md '}>Delivery information</p>
@@ -95,7 +136,7 @@ const OrderDetailPage = () => {
               </AccordionContent>
             </AccordionItem>
           )}
-          {status === 1 && (
+          {status >= 1 && (
             <AccordionItem value='item-2'>
               <AccordionTrigger>
                 <p className={'font-medium text-md '}>Product information</p>
@@ -105,17 +146,17 @@ const OrderDetailPage = () => {
               </AccordionContent>
             </AccordionItem>
           )}
-          {status === 2 && (
+          {status >= 2 && (
             <AccordionItem value='item-1'>
               <AccordionTrigger>
                 <p className={'font-medium text-md '}>Driver & Truck information</p>
               </AccordionTrigger>
               <AccordionContent>
-                <TruckInformation order={order} />
+                <TruckInformation driver={driver} />
               </AccordionContent>
             </AccordionItem>
           )}
-          {status === 1 && (
+          {status >= 2 && (
             <AccordionItem value='item-1'>
               <AccordionTrigger>
                 <p className={'font-medium text-md '}>Map Tracking</p>
@@ -126,7 +167,12 @@ const OrderDetailPage = () => {
             </AccordionItem>
           )}
         </Accordion>
-        <OrderCompleteDialog />
+        {status > 1 && (
+          <Button className={'bg-orangeTheme hover:bg-orangeTheme/90 cursor-pointer mx-20 '} onClick={onConfirmOrder}>
+            Paid for service
+          </Button>
+        )}
+        {/*<OrderCompleteDialog />*/}
       </div>
     </>
   )

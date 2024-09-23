@@ -1,20 +1,20 @@
 import { Star } from 'lucide-react'
 import { Separator } from '@/components/atoms/ui/separator.tsx'
-import { TOrderDetail } from '@/types/OrderDetailType.ts'
+import { TUser } from '@/types/UserType.ts'
+import generateImage from '@/utils/generateAvatar.ts'
 interface Props {
-  order: TOrderDetail | null
+  driver: TUser | null
 }
-const TruckInformation = ({ order }: Props) => {
-  console.log(order)
+const TruckInformation = ({ driver }: Props) => {
   return (
     <div className={'flex  flex-col p-4'}>
       {/*<p className={'uppercase font-semibold text-orangeTheme text-lg justify-start my-2'}>Truck information</p>*/}
       <div className={'grid grid-cols-2 gap-4'}>
         <div className={'cols-span-1 px-4 gap-4 flex justify-center items-center'}>
-          <img src={'https://github.com/shadcn.png'} alt={''} className={'w-20 h-20 rounded-md'} />
+          <img src={generateImage(driver?.fullName ?? '')} alt={''} className={'w-20 h-20 rounded-md'} />
           <div className={'cols-span-1 px-4 gap-4'}>
-            <p className={'col-span-2'}>Do Minh Nghĩa</p>
-            <p className={'col-span-2'}>04847 76 3623</p>
+            <p className={'col-span-2'}>{driver?.fullName}</p>
+            <p className={'col-span-2'}>{driver?.phone}</p>
           </div>
         </div>
         <div className={'cols-span-2'}>
