@@ -41,7 +41,7 @@ const SearchInput = <T extends FieldValues>({
 
   useEffect(() => {
     setCall(true)
-  }, [input])
+  }, [debouncedValue])
 
   const onChoose = (value: string, placeId: string) => {
     form.setValue(name, value as PathValue<T, Path<T>>)

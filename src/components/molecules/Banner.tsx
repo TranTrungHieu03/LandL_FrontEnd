@@ -31,7 +31,12 @@ const Banner = ({ classContent, images }: BannerProps) => {
         <CarouselContent>
           {images.map((image) => (
             <CarouselItem key={image.id}>
-              <img src={image.url} alt={`banner-${image.id}`} className={'h-[600px] object-cover w-full rounded-md'} />
+              <img
+                src={image.url}
+                loading={'lazy'}
+                alt={`banner-${image.id}`}
+                className={'h-[600px] object-cover w-full rounded-md'}
+              />
             </CarouselItem>
           ))}
         </CarouselContent>

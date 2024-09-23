@@ -5,32 +5,37 @@ export const processState = [
   },
   {
     id: 2,
-    title: 'Paid'
+    title: 'In Process'
   },
   {
     id: 3,
-    title: 'In Route'
+    title: 'Paid'
   },
   {
     id: 4,
-    title: 'Received'
+    title: 'In Route'
   },
   {
     id: 5,
-    title: 'Delivered'
+    title: 'Received'
   },
   {
     id: 6,
+    title: 'Delivered'
+  },
+  {
+    id: 7,
     title: 'Completed'
   }
 ]
 
 export enum processStateEnum {
   'Processing' = 1,
-  'Paid' = 2,
-  'InRoute' = 3,
-  'Received' = 4,
-  'Delivered' = 5,
-  'Completed' = 6
+  'InProcess' = 2,
+  'Paid' = 3,
+  'InRoute' = 4,
+  'Received' = 5,
+  'Delivered' = 6,
+  'Completed' = 7
 }
 export type ProcessStateEnumType = keyof typeof processStateEnum

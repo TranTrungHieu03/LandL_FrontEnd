@@ -8,7 +8,7 @@ const UserAvatar = ({ avatar, classContent }: AvatarProps) => {
   return (
     <div>
       <Avatar>
-        <AvatarImage src={avatar} className={classContent} />
+        <AvatarImage src={avatar} className={classContent} loading={'lazy'} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
     </div>

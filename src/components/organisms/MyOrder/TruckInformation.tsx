@@ -5,6 +5,7 @@ interface Props {
   order: TOrderDetail | null
 }
 const TruckInformation = ({ order }: Props) => {
+  console.log(order)
   return (
     <div className={'flex  flex-col p-4'}>
       {/*<p className={'uppercase font-semibold text-orangeTheme text-lg justify-start my-2'}>Truck information</p>*/}

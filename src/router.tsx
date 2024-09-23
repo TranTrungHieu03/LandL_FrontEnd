@@ -1,48 +1,52 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
-import LoginPage from '@/components/pages/Login/LoginPage.tsx'
-import SignupPage from '@/components/pages/Signup/SignupPage.tsx'
-import ForgotPasswordPage from '@/components/pages/ForgotPassword/ForgotPasswordPage.tsx'
-import VerifyCodePage from '@/components/pages/VerifyCode/VerifyCodePage.tsx'
-import SetPasswordPage from '@/components/pages/SetPassword/SetPasswordPage.tsx'
-import HomeLayout from '@/components/templates/HomeLayout.tsx'
-import MainLayout from '@/components/templates/MainLayout.tsx'
-import ServicePage from '@/components/pages/Service/ServicePage.tsx'
-import CostPage from '@/components/pages/Cost/CostPage.tsx'
-import BlogPage from '@/components/pages/Blog/BlogPage.tsx'
-import AboutUsPage from '@/components/pages/AboutUs/AboutUsPage.tsx'
-import ProfilePage from '@/components/pages/Profile/ProfilePage.tsx'
-import BlogDetailPage from '@/components/pages/Blog/BlogDetailPage.tsx'
-import PaymentPage from './components/pages/PayOsPay/PaymentPage'
-import AdminLayout from '@/components/templates/AdminLayout.tsx'
-import MyOrderPage from '@/components/pages/MyOrder/MyOrderPage.tsx'
-import OrderDetailPage from '@/components/pages/OrderDetail/OrderDetailPage.tsx'
-import AuthCallbackPage from './components/pages/Auth0/AuthCallbackPage'
+import React, { Suspense } from 'react'
+import Loading from '@/components/templates/Loading.tsx'
+const LoginPage = React.lazy(() => import('@/components/pages/Login/LoginPage.tsx'))
+const SignupPage = React.lazy(() => import('@/components/pages/Signup/SignupPage.tsx'))
+const ForgotPasswordPage = React.lazy(() => import('@/components/pages/ForgotPassword/ForgotPasswordPage.tsx'))
+const VerifyCodePage = React.lazy(() => import('@/components/pages/VerifyCode/VerifyCodePage.tsx'))
+const SetPasswordPage = React.lazy(() => import('@/components/pages/SetPassword/SetPasswordPage.tsx'))
+const HomeLayout = React.lazy(() => import('@/components/templates/HomeLayout.tsx'))
+const MainLayout = React.lazy(() => import('@/components/templates/MainLayout.tsx'))
+const ServicePage = React.lazy(() => import('@/components/pages/Service/ServicePage.tsx'))
+const CostPage = React.lazy(() => import('@/components/pages/Cost/CostPage.tsx'))
+const BlogPage = React.lazy(() => import('@/components/pages/Blog/BlogPage.tsx'))
+const AboutUsPage = React.lazy(() => import('@/components/pages/AboutUs/AboutUsPage.tsx'))
+const ProfilePage = React.lazy(() => import('@/components/pages/Profile/ProfilePage.tsx'))
+const BlogDetailPage = React.lazy(() => import('@/components/pages/Blog/BlogDetailPage.tsx'))
+const PaymentPage = React.lazy(() => import('@/components/pages/PayOsPay/PaymentPage.tsx'))
+const AdminLayout = React.lazy(() => import('@/components/templates/AdminLayout.tsx'))
+const MyOrderPage = React.lazy(() => import('@/components/pages/MyOrder/MyOrderPage.tsx'))
+const OrderDetailPage = React.lazy(() => import('@/components/pages/OrderDetail/OrderDetailPage.tsx'))
+const AuthCallbackPage = React.lazy(() => import('@/components/pages/Auth0/AuthCallbackPage.tsx'))
 
 const AppRoutes = () => {
   return (
-    <Routes>
-      <Route path='/auth-callback' element={<AuthCallbackPage />} />
-      <Route path={ROUTES.PAY_OS} element={<PaymentPage />} />,
-      <Route path={ROUTES.SIGN_UP} element={<SignupPage />} />,
-      <Route path={ROUTES.LOGIN} element={<LoginPage />} />,
-      <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />,
-      <Route path={ROUTES.VERIFY_CODE} element={<VerifyCodePage />} />,
-      <Route path={ROUTES.SET_PASSWORD} element={<SetPasswordPage />} />,
-      <Route path={ROUTES.ROOT} element={<HomeLayout />} />,
-      <Route path={ROUTES.ROOT} element={<MainLayout />}>
-        <Route path={ROUTES.CREATE_ORDER} element={<ServicePage />} />,
-        <Route path={ROUTES.COST} element={<CostPage />} />,
-        <Route path={ROUTES.BLOG} element={<BlogPage />} />,
-        <Route path={ROUTES.ABOUT_US} element={<AboutUsPage />} />,
-        <Route path={ROUTES.PROFILE} element={<ProfilePage />} />,
-        <Route path={ROUTES.BLOG_DETAIL} element={<BlogDetailPage />} />,
-        <Route path={ROUTES.MY_ORDER} element={<MyOrderPage />} />,
-        <Route path={ROUTES.ORDER_DETAIL_ID} element={<OrderDetailPage />} />,
-      </Route>
-      ,<Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}></Route>
-      <Route path='*' element={<Navigate to='/' />} />
-    </Routes>
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route path='/auth-callback' element={<AuthCallbackPage />} />
+        <Route path={ROUTES.PAY_OS} element={<PaymentPage />} />,
+        <Route path={ROUTES.SIGN_UP} element={<SignupPage />} />,
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />,
+        <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />,
+        <Route path={ROUTES.VERIFY_CODE} element={<VerifyCodePage />} />,
+        <Route path={ROUTES.SET_PASSWORD} element={<SetPasswordPage />} />,
+        <Route path={ROUTES.ROOT} element={<HomeLayout />} />,
+        <Route path={ROUTES.ROOT} element={<MainLayout />}>
+          <Route path={ROUTES.CREATE_ORDER} element={<ServicePage />} />,
+          <Route path={ROUTES.COST} element={<CostPage />} />,
+          <Route path={ROUTES.BLOG} element={<BlogPage />} />,
+          <Route path={ROUTES.ABOUT_US} element={<AboutUsPage />} />,
+          <Route path={ROUTES.PROFILE} element={<ProfilePage />} />,
+          <Route path={ROUTES.BLOG_DETAIL} element={<BlogDetailPage />} />,
+          <Route path={ROUTES.MY_ORDER} element={<MyOrderPage />} />,
+          <Route path={ROUTES.ORDER_DETAIL_ID} element={<OrderDetailPage />} />,
+        </Route>
+        ,<Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}></Route>
+        <Route path='*' element={<Navigate to='/' />} />
+      </Routes>
+    </Suspense>
   )
 }
 export default AppRoutes

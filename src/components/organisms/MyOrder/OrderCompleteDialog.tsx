@@ -9,9 +9,7 @@ import {
   AlertDialogAction
 } from '@/components/atoms/ui/alert-dialog.tsx'
 
-interface Props {
-  price: number
-}
+interface Props {}
 
 const OrderCompleteDialog = ({}: Props) => {
   return (

@@ -1,5 +1,4 @@
 import Map, {
-  AttributionControl,
   FullscreenControl,
   GeolocateControl,
   Layer,
@@ -8,48 +7,60 @@ import Map, {
   ScaleControl,
   Source
 } from 'react-map-gl'
+import polyline from '@mapbox/polyline'
 import { useState } from 'react'
-import { search } from '@/services/mapService.ts'
+import { getDirection } from '@/services/mapService.ts'
+import { TOrderDetail } from '@/types/OrderDetailType.ts'
+import { LngLat } from 'mapbox-gl'
+import { FlagTriangleLeftIcon, MapPin } from 'lucide-react'
 
 const MAP_API = import.meta.env.VITE_MAPBOX_URL || ''
 const MAP_STYLE = import.meta.env.VITE_MAP_STYLE || ''
-const MapCustom = () => {
+
+interface Props {
+  order: TOrderDetail | null
+}
+
+const MapCustom = ({ order }: Props) => {
   const [map, setMap] = useState(null)
-
-  const handleMapLoad = (event: any) => {
-    const mapInstance = event.target
-    setMap(mapInstance)
-  }
-  // const [position, setPosition] = useState({
-  //   longitude: 106.8136,
-  //   latitude: 10.8566
-  // })
-  // const style = {
-  //   padding: '10px',
-  //   color: '#fff',
-  //   cursor: 'pointer',
-  //   background: '#1978c8',
-  //   borderRadius: '6px'
-  // }
-
-  const routeGeoJSON = {
+  const [routeGeoJSON, setRouteGeoJSON] = useState({
     type: 'Feature',
     geometry: {
-      type: 'LineString',
-      coordinates: [
-        [106.8136, 10.8566],
-        [106.8136, 11]
-      ]
+      type: 'LineString'
     }
+  })
+  const lngLatSource: LngLat = new LngLat(
+    Number.parseFloat(order?.deliveryInfoDetail?.longPickUp ?? '0'),
+    Number.parseFloat(order?.deliveryInfoDetail?.latPickUp ?? '0')
+  )
+
+  const lngLatDestination: LngLat = new LngLat(
+    Number.parseFloat(order?.deliveryInfoDetail?.longDelivery ?? '0'),
+    Number.parseFloat(order?.deliveryInfoDetail?.latDelivery ?? '0')
+  )
+  const handleMapLoad = async (event: any) => {
+    const mapInstance = event.target
+    setMap(mapInstance)
+    await getRoute()
+  }
+
+  const getRoute = async () => {
+    const distanceQuery = await getDirection({ source: lngLatSource, destination: lngLatDestination })
+    const geometry_string = distanceQuery['routes'][0]['overview_polyline'].points
+    const geoJson = polyline.toGeoJSON(geometry_string)
+    setRouteGeoJSON({
+      type: 'Feature',
+      geometry: geoJson
+    })
   }
   return (
-    <div className={'w-full h-full'}>
+    <div className={'w-full h-full flex justify-center items-center p-4'}>
       <Map
         mapboxAccessToken={MAP_API}
         initialViewState={{
-          longitude: 106.8136,
-          latitude: 10.8566,
-          zoom: 14
+          longitude: lngLatSource.lng,
+          latitude: lngLatSource.lat,
+          zoom: 12
         }}
         style={{ width: 1200, height: 550, borderRadius: 10 }}
         mapStyle={MAP_STYLE}
@@ -62,27 +73,31 @@ const MapCustom = () => {
       >
         {map && (
           <>
-            <Source id='maine' type='geojson' data={routeGeoJSON} />
+            <Source id='LineString' type='geojson' data={routeGeoJSON} />
             <Layer
-              id='maine'
+              id='LineString'
               type='line'
-              source='maine'
+              source='LineString'
               layout={{
                 'line-join': 'round',
                 'line-cap': 'round'
               }}
               paint={{
-                'line-color': '#ec3111',
-                'line-width': 6
+                'line-color': '#f35d2f',
+                'line-width': 4
               }}
             />
 
-            {/*<Marker*/}
-            {/*  longitude={position.longitude}*/}
-            {/*  latitude={position.latitude}*/}
-            {/*  // onDragEnd={onDragEnd}*/}
-            {/*> <div style={style}>Click me! ✨</div>*/}
-            {/*</Marker>*/}
+            <Marker longitude={lngLatSource.lng} latitude={lngLatSource.lat}>
+              <div>
+                <MapPin strokeWidth={3} className={'text-orangeTheme animate-bounce'} size={24} />
+              </div>
+            </Marker>
+            <Marker longitude={lngLatDestination.lng} latitude={lngLatDestination.lat}>
+              <div>
+                <FlagTriangleLeftIcon strokeWidth={3} className={'text-orangeTheme animate-bounce'} size={24} />
+              </div>
+            </Marker>
             <ScaleControl unit='metric' position='bottom-right' />
             <GeolocateControl
               positionOptions={{ enableHighAccuracy: true }}

@@ -6,7 +6,7 @@ const Footer = () => {
     <div className={'bg-darkTheme text-white px-20 py-5 text-sm mt-auto '}>
       <div className={'flex gap-8 justify-between flex-wrap'}>
         <div className={'flex gap-2 items-center px-8'}>
-          <img src={'/logoLL.png'} alt={'logo'} className={'w-28 h-28'} />
+          <img src={'/logoLL.png'} alt={'logo'} className={'w-28 h-28'} loading={'lazy'} />
           <div className={'flex flex-col'}>
             <span className={'font-black tracking-tight text-orangeTheme text-lg'}>L&L COMPANY</span>
             <span className={'text-wrap'}>L&L Tower, District 1, Ho Chi Minh City, Viet Nam.</span>

@@ -1,4 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import toast from 'react-hot-toast'
+import { jwtDecode, JwtPayload } from 'jwt-decode'
+import authService from '@/services/authService.ts'
 
 const BASE_URL = import.meta.env.VITE_ORIGINAL_URL || ''
 const api = axios.create({
@@ -9,6 +12,20 @@ const api = axios.create({
 })
 api.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem('accessToken')
+  let decode = null
+  if (accessToken) {
+    decode = jwtDecode<JwtPayload>(accessToken ?? '')
+  }
+  const refreshToken = async () => {
+    const response = await authService.getRefresh()
+    if (response.success) {
+      localStorage.setItem('accessToken', response.result?.data)
+    }
+  }
+  if (decode?.exp && accessToken && decode?.exp * 1000 > Date.now()) {
+    refreshToken()
+  }
+
   if (accessToken) {
     config.headers.set('Authorization', `Bearer ${accessToken}`)
   }
@@ -25,7 +42,9 @@ export interface ResponseProps<T = any> {
 
 const handleApiError = (error: AxiosError) => {
   const { response } = error
-  console.log(response?.status)
+  if (response?.status === 401) {
+    toast.error('Please login again.')
+  }
   return response?.data as ResponseProps
 }
 
@@ -35,7 +54,7 @@ export const get = async <T>(url: string): Promise<T | ResponseProps> => {
     return response.data
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
-      return handleApiError(error)
+      handleApiError(error)
     }
     throw error
   }
@@ -60,7 +79,7 @@ export const put = async <T>(url: string, data?: unknown): Promise<T | ResponseP
     return response.data
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
-      handleApiError(error)
+      return handleApiError(error)
     }
     throw error
   }
@@ -72,7 +91,7 @@ export const patch = async <T>(url: string, data: unknown): Promise<T | Response
     return response.data
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
-      handleApiError(error)
+      return handleApiError(error)
     }
     throw error
   }

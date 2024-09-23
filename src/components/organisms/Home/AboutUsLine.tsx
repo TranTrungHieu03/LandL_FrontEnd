@@ -7,7 +7,7 @@ const AboutUsLine = () => {
     >
       <div className={'col-span-1 flex justify-center'}>
         <div className={'relative bg-orangeTheme w-fit p-2 transform -translate-y-24'}>
-          <img src={'/home-4.png'} className={'object-cover w-72 '} alt={'home-4.png'} />
+          <img src={'/home-4.png'} className={'object-cover w-72 '} alt={'home-4.png'} loading={'lazy'} />
           <div
             className={
               ' absolute z-10 uppercase right-0 bottom-14 text-4xl bg-orangeTheme text-white font-semibold w-60 tracking-tighter p-4 transform translate-x-28'

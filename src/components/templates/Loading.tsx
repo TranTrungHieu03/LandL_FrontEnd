@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react'
-import animation from '../../../public/loading_truck.json'
+import animation from '../../assets/animations/loading_truck.json'
 const Loading = () => {
   return (
     <div className={'fixed inset-0 flex justify-center items-center backdrop-brightness-95 z-40'}>

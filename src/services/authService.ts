@@ -72,6 +72,9 @@ const getUserInfo = async (): Promise<ResponseProps> => {
   return await get('User/GetProfile')
 }
 
+const getRefresh = async (): Promise<ResponseProps> => {
+  return await get('Auth/refresh-token')
+}
 export default {
   register,
   verify,
@@ -80,5 +83,6 @@ export default {
   resendOTP,
   updatePassword,
   loginWithGG,
-  getUserInfo
+  getUserInfo,
+  getRefresh
 }

@@ -8,8 +8,8 @@ export type TDeliveryInfoDetail = {
   longDelivery: string
   latDelivery: string
   pickUpLocation: string
-  longPickup: string
-  latPickup: string
+  longPickUp: string
+  latPickUp: string
   orderDate: string
   receiverDate: string
   expectedReceiveDate: string

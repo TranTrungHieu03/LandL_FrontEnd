@@ -1,15 +1,14 @@
 import { Check } from 'lucide-react'
 import { cn } from '@/utils/cn.ts'
-import { useDelivery } from '@/context/deliveryContext.tsx'
 
 interface Props {
   title: string
   id: number
   length: number
+  status: number
 }
 
-const ProcessState = ({ title, id, length }: Props) => {
-  const { status } = useDelivery()
+const ProcessState = ({ title, id, length, status }: Props) => {
   return (
     <div className={'col-span-1 relative flex flex-col h-20 justify-center items-center'}>
       <div className={'absolute w-full z-20 flex flex-col justify-center items-center'}>
@@ -30,7 +29,7 @@ const ProcessState = ({ title, id, length }: Props) => {
         {id < length && (
           <span
             className={cn(
-              'md:w-5/6 z-0 md:h-1 transform md:translate-x-[60%] md:-translate-y-4 sm:w-1 sm:h-12 ',
+              'md:w-4/5 z-0 md:h-1 transform md:translate-x-[62%] md:-translate-y-4 sm:w-1 sm:h-12 ',
               status > id ? 'bg-orangeTheme' : 'bg-slate-300'
             )}
           ></span>

@@ -130,7 +130,7 @@ const SearchElement = () => {
             enableOther={true}
             classContent={'col-span-2'}
           />
-          <FormDatePicker name={'time'} form={form} addDay={3} subDay={1} classContent={'col-span-2'} />
+          <FormDatePicker name={'time'} form={form} addDay={7} subDay={1} classContent={'col-span-2'} />
 
           <div className={'col-span-6 flex justify-end '}>
             <Button className={'bg-orangeTheme w-fit hover:bg-orangeTheme/90 px-6 '} type={'submit'}>

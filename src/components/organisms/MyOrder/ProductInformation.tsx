@@ -144,7 +144,7 @@ const ProductInformation = ({ order, setIsUpdatedOrder }: Props) => {
             </div>
           </div>
           <div className={'col-span-1'}>
-            <img src={order?.productInfo?.image} alt={''} className={'col-span-1 w-1/2 h-40 object-cover'} />
+            <img src={order?.productInfo?.image  loading={'lazy'} alt={''} className={'col-span-1 w-1/2 h-40 object-cover'} />
           </div>
         </div>
       )}
