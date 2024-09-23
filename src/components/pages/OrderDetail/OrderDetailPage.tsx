@@ -1,7 +1,7 @@
 import ProcessHeader from '@/components/organisms/MyOrder/ProcessHeader.tsx'
 // import WaitingConfirm from '@/components/organisms/MyOrder/WaitingConfirm.tsx'
 import TruckInformation from '@/components/organisms/MyOrder/TruckInformation.tsx'
-import { redirect, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Loading from '@/components/templates/Loading.tsx'
 import { confirmOrder, getOrderByOrderId, getOrderDetailByOrderId } from '@/services/deliveryService.ts'

@@ -15,7 +15,6 @@ const BlogPage = React.lazy(() => import('@/components/pages/Blog/BlogPage.tsx')
 const AboutUsPage = React.lazy(() => import('@/components/pages/AboutUs/AboutUsPage.tsx'))
 const ProfilePage = React.lazy(() => import('@/components/pages/Profile/ProfilePage.tsx'))
 const BlogDetailPage = React.lazy(() => import('@/components/pages/Blog/BlogDetailPage.tsx'))
-const PaymentPage = React.lazy(() => import('@/components/pages/PayOsPay/PaymentPage.tsx'))
 const AdminLayout = React.lazy(() => import('@/components/templates/AdminLayout.tsx'))
 const MyOrderPage = React.lazy(() => import('@/components/pages/MyOrder/MyOrderPage.tsx'))
 const OrderDetailPage = React.lazy(() => import('@/components/pages/OrderDetail/OrderDetailPage.tsx'))
@@ -26,7 +25,6 @@ const AppRoutes = () => {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path='/auth-callback' element={<AuthCallbackPage />} />
-        <Route path={ROUTES.PAY_OS} element={<PaymentPage />} />,
         <Route path={ROUTES.SIGN_UP} element={<SignupPage />} />,
         <Route path={ROUTES.LOGIN} element={<LoginPage />} />,
         <Route path={ROUTES.FORGOT_PASSWORD} element={<ForgotPasswordPage />} />,
