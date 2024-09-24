@@ -1,12 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import toast from 'react-hot-toast'
-import { Simulate } from 'react-dom/test-utils'
 import authService from '@/services/authService.ts'
 import { redirect } from 'react-router-dom'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
-// import { jwtDecode, JwtPayload } from 'jwt-decode'
-// import authService from '@/services/authService.ts'
-// import authService from '@/services/authService.ts'
 
 const BASE_URL = import.meta.env.VITE_ORIGINAL_URL || ''
 const api = axios.create({
@@ -22,7 +18,6 @@ api.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
-      console.log(accessToken)
       config.headers.set('Authorization', `Bearer ${accessToken}`)
     }
     return config
@@ -33,7 +28,6 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalReq = error.config
-
     if (error.response.status === 401 && !originalReq._retry) {
       originalReq._retry = true
       try {
