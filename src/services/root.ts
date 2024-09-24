@@ -1,5 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import toast from 'react-hot-toast'
+import { Simulate } from 'react-dom/test-utils'
+import authService from '@/services/authService.ts'
+import { redirect } from 'react-router-dom'
+import { ROUTES } from '@/contants/routerEndpoint.ts'
 // import { jwtDecode, JwtPayload } from 'jwt-decode'
 // import authService from '@/services/authService.ts'
 // import authService from '@/services/authService.ts'
@@ -7,83 +11,46 @@ import toast from 'react-hot-toast'
 const BASE_URL = import.meta.env.VITE_ORIGINAL_URL || ''
 const api = axios.create({
   baseURL: BASE_URL,
+  withCredentials: true,
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json'
   }
 })
-// api.interceptors.request.use((config) => {
-//   const accessToken = localStorage.getItem('accessToken')
-// let decode = null
-// if (accessToken) {
-//   decode = jwtDecode<JwtPayload>(accessToken ?? '')
-// }
-// const refreshToken = async () => {
-//   const response = await authService.getRefresh()
-//   if (response.success) {
-//     localStorage.setItem('accessToken', response.result?.data)
-//   }
-// }
-// if (decode?.exp && accessToken && decode?.exp * 1000 < Date.now()) {
-//   refreshToken()
-// }
 
-//   if (accessToken) {
-//     config.headers.set('Authorization', `Bearer ${JSON.stringify(accessToken)}`)
-//   }
-//   return config
-// })
+api.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+      console.log(accessToken)
+      config.headers.set('Authorization', `Bearer ${accessToken}`)
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalReq = error.config
 
-// import authService from '@/services/authService.ts'
-//
-// api.interceptors.request.use(async (config) => {
-//   const accessToken = localStorage.getItem('accessToken')
-//   let decode: JwtPayload | null = null
-//
-//   if (accessToken) {
-//     decode = jwtDecode<JwtPayload>(accessToken ?? '')
-//     console.log(decode, '<<<<<<<<<<<<<<<<<<<<<<<')
-//   }
-//
-//   const currentDate = new Date()
-//
-//   const refreshToken = async () => {
-//     try {
-//       const response = await authService.getRefresh()
-//       if (response.success) {
-//         const newAccessToken = response.result?.data
-//         localStorage.setItem('accessToken', JSON.stringify(newAccessToken))
-//         return newAccessToken
-//       }
-//     } catch (error) {
-//       console.error('Error refreshing token', error)
-//       // Optionally, handle logout or redirection here
-//     }
-//     return null
-//   }
-//
-//   // Check if token is expired
-//   if (decode?.exp && accessToken && decode?.exp < currentDate.getTime() / 1000) {
-//     console.log(`Token expired, refreshing...`)
-//     const newToken = await refreshToken()
-//     if (newToken) {
-//       config.headers.set('Authorization', `Bearer ${newToken}`)
-//     }
-//   } else if (accessToken) {
-//     // If token is still valid
-//     config.headers.set('Authorization', `Bearer ${accessToken}`)
-//   }
-//
-//   return config
-// })
-
-api.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('accessToken')
-  if (accessToken) {
-    console.log(accessToken)
-    config.headers.set('Authorization', `Bearer ${accessToken}`)
+    if (error.response.status === 401 && !originalReq._retry) {
+      originalReq._retry = true
+      try {
+        const rs = await authService.getRefresh()
+        const newAccessToken = rs.result?.data
+        localStorage.setItem('accessToken', newAccessToken)
+        originalReq.headers.Authorization = `Bearer ${newAccessToken}`
+        return axios(originalReq)
+      } catch (error: any) {
+        handleApiError(error)
+        redirect(ROUTES.LOGIN)
+      }
+    }
+    return Promise.reject(error)
   }
-  return config
-})
+)
+
 export interface ResponseProps<T = any> {
   success?: boolean
   result?: {
@@ -105,9 +72,7 @@ const handleApiError = (error: AxiosError) => {
 
 export const get = async <T>(url: string): Promise<T | ResponseProps> => {
   try {
-    const response: AxiosResponse<T> = await api.get<T>(url, {
-      withCredentials: true
-    })
+    const response: AxiosResponse<T> = await api.get<T>(url)
     return response.data
   } catch (error: unknown) {
     if (error instanceof AxiosError) {
