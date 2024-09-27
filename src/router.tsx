@@ -2,6 +2,9 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
 import React, { Suspense } from 'react'
 import Loading from '@/components/templates/Loading.tsx'
+import AdminTruckPage from './components/pages/Admin/AdminTruckPage'
+import AdminCustomerPage from './components/pages/Admin/AdminCustomerPage'
+import AdminOrderPage from './components/pages/Admin/AdminOrderPage'
 const LoginPage = React.lazy(() => import('@/components/pages/Login/LoginPage.tsx'))
 const SignupPage = React.lazy(() => import('@/components/pages/Signup/SignupPage.tsx'))
 const ForgotPasswordPage = React.lazy(() => import('@/components/pages/ForgotPassword/ForgotPasswordPage.tsx'))
@@ -41,7 +44,12 @@ const AppRoutes = () => {
           <Route path={ROUTES.MY_ORDER} element={<MyOrderPage />} />,
           <Route path={ROUTES.ORDER_DETAIL_ID} element={<OrderDetailPage />} />,
         </Route>
-        ,<Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}></Route>
+        ,
+        <Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}>
+          <Route path={ROUTES.TRUCK} element={<AdminTruckPage />} />
+          <Route path={ROUTES.CUSTOMER} element={<AdminCustomerPage />} />
+          <Route path={ROUTES.ORDER} element={<AdminOrderPage />} />
+        </Route>
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </Suspense>

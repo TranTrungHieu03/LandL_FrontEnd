@@ -1,4 +1,4 @@
-import { Maximize2Icon, Minimize2Icon } from 'lucide-react'
+import { Maximize2Icon, Minimize2Icon, LogOutIcon, UserRound } from 'lucide-react'
 
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -13,21 +13,25 @@ const Sidebar = () => {
   const [expanded, setExpanded] = useState<boolean>(true)
   return (
     <aside className={'h-screen'}>
-      <div className={'h-full flex flex-col bg-white border-r shadow-sm'}>
+      <div className={'h-full flex flex-col bg-white border-r'}>
         <div className={'p-2 flex justify-between items-center'}>
           <button
             className={cn(
-              'p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-blue-600 font-black overflow-hidden  transition-all',
-              expanded ? 'w-40' : 'hidden'
+              'p-2 rounded-lg bg-gray-50 hover:bg-gray-100 text-orange-600 font-black overflow-hidden transition-all duration-1000',
+              expanded ? 'w-40 opacity-100' : 'w-0 opacity-0'
             )}
+            style={{ transition: 'width 0.5s ease, opacity 0.5s ease' }}
           >
-            IMA WATCH
+            L&L Dashboard
           </button>
-          <button onClick={() => setExpanded((curr) => !curr)} className={'flex justify-center items-center'}>
+          <button
+            onClick={() => setExpanded((curr) => !curr)}
+            className={'flex justify-center items-center transition-all duration-1000'}
+          >
             {expanded ? (
               <Minimize2Icon size={20} />
             ) : (
-              <span className={'py-2 px-3'}>
+              <span className={'py-2 px-2'}>
                 <Maximize2Icon size={20} />
               </span>
             )}
@@ -35,7 +39,7 @@ const Sidebar = () => {
         </div>
 
         <SidebarContext.Provider value={{ expanded, setActiveItem }}>
-          <ul className={'flex-1  px-3'}>
+          <ul className={'flex-1 px-3'}>
             {navAdmin.map((item) => (
               <SidebarItem
                 key={item.id}
@@ -47,23 +51,39 @@ const Sidebar = () => {
             ))}
           </ul>
         </SidebarContext.Provider>
+
+        {/* log out */}
+        {/* Logout Button */}
         <div
           onClick={() => {
-            localStorage.removeItem('accessToken')
-            // setAuth({ user: null, isAdmin: null })
+            localStorage.removeItem('accessToken');
+            // setAuth({ user: null, isAdmin: null });
           }}
           className={cn(
-            'font-semibold leading-4 overflow-hidden  transition-all cursor-pointer',
-            expanded ? 'w-53 ml-3' : 'w-0'
+            'font-semibold leading-4 transition-all duration-1000 cursor-pointer bg-gradient-to-tr from-orange-600 to-orange-300 p-2 rounded-md flex items-center justify-start mx-3'
           )}
         >
-          Logout
+          <span>
+            <LogOutIcon />
+          </span>
+          <span className={cn('overflow-hidden  transition-all', expanded ? 'w-53 mx-3 opacity-100' : 'hidden')}>Logout</span>
         </div>
-        <div className={'flex justify-start items-center py-4 px-4'}>
-          {/*<img src={GenerateImage(auth?.user ?? "DRAFT")} alt='avatar' className={"w-10 h-10 rounded-md "} />*/}
-          <h4 className={cn('font-semibold leading-4 overflow-hidden  transition-all', expanded ? 'w-53 ml-3' : 'w-0')}>
-            {/*{auth.user}*/}
-          </h4>
+
+        {/* Test Text */}
+        <div className={'flex justify-center items-center py-4 px-2 w-full'}>
+          {/* <img src={GenerateImage(auth?.user ?? "DRAFT")} alt='avatar' className={"w-10 h-10 rounded-md "} /> */}
+          <div
+            className={cn(
+              'flex items-center justify-start cursor-pointer font-semibold leading-4 transition-all duration-1000 bg-gradient-to-tr from-orange-600 to-orange-300 p-2 rounded-md text-black w-full mx-1'
+            )}
+          >
+            <span>
+              <UserRound />
+            </span>
+            <span className={cn('overflow-hidden  transition-all', expanded ? 'w-53 mx-3 opacity-100' : 'hidden')}>
+              {/* {auth.user} */} Admin Info
+            </span>
+          </div>
         </div>
       </div>
     </aside>
@@ -87,8 +107,8 @@ const SidebarItem = ({
         className={cn(
           'relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group',
           active
-            ? 'bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 '
-            : 'hover:border-indigo-50 text-gray-600'
+            ? 'bg-gradient-to-tr from-orange-600 to-orange-300 text-black '
+            : 'hover:border-indigo-50 text-black'
         )}
         onClick={() => setActiveItem(path)}
       >
@@ -97,7 +117,7 @@ const SidebarItem = ({
         {!expanded && (
           <div
             className={
-              'absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0'
+              'absolute left-full rounded-md px-2 py-1 ml-6 bg-indigo-100 text-indigo-800 text-sm invisible opacity-20 -translate-x-3 transition-all duration-1000 group-hover:visible group-hover:opacity-100 group-hover:translate-x-0'
             }
           >
             {title}
