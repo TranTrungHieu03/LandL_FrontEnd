@@ -6,7 +6,7 @@ import PaginationItems from "@/components/organisms/Global/PaginationItems";
 
 const AdminCustomerPage = () => {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-4 w-full h-full overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 w-full h-full overflow-hidden">
             <div className="bg-white col-span-1 md:col-span-2 rounded h-full w-full">
                 <TypeLogin />
             </div>

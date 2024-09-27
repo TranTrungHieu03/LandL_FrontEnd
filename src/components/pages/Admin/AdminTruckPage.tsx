@@ -1,15 +1,25 @@
 import Miles from "@/components/organisms/Admin/Truck/Miles"
+import TableTruck from "@/components/organisms/Admin/Truck/TableTruck"
+import TruckStatus from "@/components/organisms/Admin/Truck/TruckStatus"
+import PaginationItems from "@/components/organisms/Global/PaginationItems"
 
 const AdminTruckPage = () => {
     return (
-        <div className="grid md:grid-rows-5 sm:grid-cols-1 w-full h-full overflow-hidden">
-            <div className="grid grid-cols-2 row-span-2 gap-x-5 m-4 w-full">
-                <div className="bg-white col-span-2 rounded h-[300px] w-full"> {/* Adjust height as needed */}
+        <div className="grid grid-cols-1 gap-3 p-4 w-full h-full overflow-hidden">
+            <div className="grid grid-cols-2 w-full h-full gap-5 rounded">
+                <div className="bg-white col-span-1 w-full h-full">
                     <Miles />
                 </div>
+                <div className="bg-white col-span-1 w-full h-full">
+                    <TruckStatus />
+                </div>
             </div>
-            <div></div>
-            <div></div>
+            <div className="bg-white h-full w-full col-span-1">
+                <TableTruck />
+            </div>
+            <div className="col-span-1">
+                <PaginationItems />
+            </div>
         </div>
     )
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     BarChart,
     Bar,
@@ -7,6 +6,7 @@ import {
     CartesianGrid,
     Tooltip,
     Legend,
+    ResponsiveContainer
 } from "recharts";
 
 // Define the type for data items
@@ -40,7 +40,7 @@ const getIntroOfMonth = (label: string) => {
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
-            <div className="custom-tooltip">
+            <div className="custom-tooltip bg-white border p-2 rounded shadow-lg">
                 <p className="label">{`${label}: ${payload[0].value} km`}</p>
                 <p className="intro">{getIntroOfMonth(label)}</p>
                 <p className="desc">Distance traveled in kilometers.</p>
@@ -51,27 +51,29 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
-const Miles: React.FC = () => {
+const Miles = () => {
     return (
-        <div>
-            <BarChart
-                width={600}
-                height={320}
-                data={data}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend />
-                <Bar dataKey="km" barSize={20} fill="#8884d8" />
-            </BarChart>
+        <div className="w-full h-full flex justify-center items-center">
+            <div className="w-full h-[100%]"> {/* Use full width and height */}
+                <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                        data={data}
+                        margin={{
+                            top: 25,
+                            right: 30,
+                            left: 20,
+                            bottom: -2,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip content={<CustomTooltip />} />
+                        <Legend />
+                        <Bar dataKey="km" barSize={20} fill="#FF8042" />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
         </div>
     );
 };
