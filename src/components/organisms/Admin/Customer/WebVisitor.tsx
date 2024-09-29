@@ -58,7 +58,7 @@ const WebVisitor = () => {
         loading ? (<Loading />) : (
             <div className="flex flex-col items-center justify-center h-full relative"> {/* Center vertically and horizontally */}
                 <span className='absolute top-2 font-light'>Website Actors</span>
-                <div className="w-11/12 h-[300px] flex items-center justify-center"> {/* Center the chart within this div */}
+                <div className="w-11/12 h-[280px] flex items-center justify-center"> {/* Center the chart within this div */}
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                             <Pie

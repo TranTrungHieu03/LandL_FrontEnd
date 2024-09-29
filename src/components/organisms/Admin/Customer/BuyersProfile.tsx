@@ -54,7 +54,7 @@ const BuyersProfile = () => {
         loading ? <Loading /> : (
             <div className="flex flex-col items-center justify-center h-full relative">
                 <h3 className='absolute top-2 font-light'>Actor Age</h3>
-                <div className="w-11/12 h-80 flex items-center justify-center">
+                <div className="w-11/12 h-[95%] flex items-center justify-center">
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                             <Pie

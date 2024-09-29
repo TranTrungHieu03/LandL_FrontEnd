@@ -34,7 +34,7 @@ const TableList = ({ users }: Props) => {
     return (
         <div className="w-full h-full">
             {/* Search Input */}
-            <div className='h-[90%]'>
+            <div className='h-[95%]'>
                 <div>
                     <input
                         type="text"
@@ -76,7 +76,7 @@ const TableList = ({ users }: Props) => {
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No users found</TableCell>
+                                    <TableCell colSpan={4} className="text-center">No users found</TableCell>
                                 </TableRow>
                             )}
                         </TableBody>

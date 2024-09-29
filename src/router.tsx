@@ -47,13 +47,18 @@ const AppRoutes = () => {
           <Route path={ROUTES.ORDER_DETAIL_ID} element={<OrderDetailPage />} />,
         </Route>
         ,
-        {auth.user?.roleID == 1 ? (
+        {/* {auth.user?.roleID == 1 ? (
           <Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}>
             <Route path={ROUTES.TRUCK} element={<AdminTruckPage />} />
             <Route path={ROUTES.CUSTOMER} element={<AdminCustomerPage />} />
             <Route path={ROUTES.ORDER} element={<AdminOrderPage />} />
           </Route>
-        ) : (<Route path='*' element={<Navigate to='/' />} />)}
+        ) : (<Route path='*' element={<Navigate to='/' />} />)} */}
+        <Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}>
+          <Route path={ROUTES.TRUCK} element={<AdminTruckPage />} />
+          <Route path={ROUTES.CUSTOMER} element={<AdminCustomerPage />} />
+          <Route path={ROUTES.ORDER} element={<AdminOrderPage />} />
+        </Route>
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </Suspense>
