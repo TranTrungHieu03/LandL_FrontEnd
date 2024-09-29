@@ -55,7 +55,7 @@ const Miles = () => {
     }, [])
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <div className="w-full h-[90%]"> {/* Use full width and height */}
+            <div className="w-full h-[95%]"> {/* Use full width and height */}
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         data={data}

@@ -46,7 +46,7 @@ const TruckStatus = () => {
     }, [])
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <div className="w-full h-[300px]"> {/* Full width and height for responsiveness */}
+            <div className="w-full h-[280px]"> {/* Full width and height for responsiveness */}
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
                         data={data}

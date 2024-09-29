@@ -36,8 +36,8 @@ const TableTruck = ({ trucks }: Props) => {
     return (
         <div className="w-full h-full">
             {/* Search Input */}
-            <div className='h-[90%]'>
-                <div className='mb-4'>
+            <div className='h-[95%]'>
+                <div>
                     <input
                         type="text"
                         placeholder="Search by truck name or plate code..."
@@ -83,7 +83,7 @@ const TableTruck = ({ trucks }: Props) => {
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No trucks found</TableCell>
+                                    <TableCell colSpan={4} className="text-center">No trucks found</TableCell>
                                 </TableRow>
                             )}
                         </TableBody>
