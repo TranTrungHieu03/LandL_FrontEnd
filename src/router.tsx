@@ -5,6 +5,7 @@ import Loading from '@/components/templates/Loading.tsx'
 import AdminTruckPage from './components/pages/Admin/AdminTruckPage'
 import AdminCustomerPage from './components/pages/Admin/AdminCustomerPage'
 import AdminOrderPage from './components/pages/Admin/AdminOrderPage'
+import { useAuth } from './context/authContext'
 const LoginPage = React.lazy(() => import('@/components/pages/Login/LoginPage.tsx'))
 const SignupPage = React.lazy(() => import('@/components/pages/Signup/SignupPage.tsx'))
 const ForgotPasswordPage = React.lazy(() => import('@/components/pages/ForgotPassword/ForgotPasswordPage.tsx'))
@@ -24,6 +25,7 @@ const OrderDetailPage = React.lazy(() => import('@/components/pages/OrderDetail/
 const AuthCallbackPage = React.lazy(() => import('@/components/pages/Auth0/AuthCallbackPage.tsx'))
 
 const AppRoutes = () => {
+  const { auth } = useAuth();
   return (
     <Suspense fallback={<Loading />}>
       <Routes>
@@ -45,11 +47,13 @@ const AppRoutes = () => {
           <Route path={ROUTES.ORDER_DETAIL_ID} element={<OrderDetailPage />} />,
         </Route>
         ,
-        <Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}>
-          <Route path={ROUTES.TRUCK} element={<AdminTruckPage />} />
-          <Route path={ROUTES.CUSTOMER} element={<AdminCustomerPage />} />
-          <Route path={ROUTES.ORDER} element={<AdminOrderPage />} />
-        </Route>
+        {auth.user?.roleID == 1 ? (
+          <Route path={ROUTES.DASH_BOARD} element={<AdminLayout />}>
+            <Route path={ROUTES.TRUCK} element={<AdminTruckPage />} />
+            <Route path={ROUTES.CUSTOMER} element={<AdminCustomerPage />} />
+            <Route path={ROUTES.ORDER} element={<AdminOrderPage />} />
+          </Route>
+        ) : (<Route path='*' element={<Navigate to='/' />} />)}
         <Route path='*' element={<Navigate to='/' />} />
       </Routes>
     </Suspense>

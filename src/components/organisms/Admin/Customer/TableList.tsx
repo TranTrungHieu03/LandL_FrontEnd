@@ -9,50 +9,36 @@ import {
     TableHead,
 } from "@/components/atoms/ui/table";
 
-const invoices = [
-    {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
-    },
+// Define the User type
+type User = {
+    userId: number;
+    userName: string;
+    email: string;
+    status: string;
+    gender: string;
+}
 
-];
+// Define the Props type
+type Props = {
+    users: User[];
+}
 
-const TableList = () => {
+const TableList = ({ users }: Props) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    // Filter invoices based on the search query
-    const filteredInvoices = invoices.filter((invoice) =>
-        invoice.invoice.toLowerCase().includes(searchQuery.toLowerCase())
+    // Filter users based on the search query
+    const filteredUsers = users.filter((user) =>
+        user.userName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
         <div className="w-full h-full">
             {/* Search Input */}
             <div className='h-[90%]'>
-                <div className=''>
+                <div>
                     <input
                         type="text"
-                        placeholder="Search by invoice number..."
+                        placeholder="Search by user name..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="p-2 border rounded w-full bg-white"
@@ -62,25 +48,35 @@ const TableList = () => {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">Invoice</TableHead>
+                                <TableHead className="w-[100px]">User ID</TableHead>
+                                <TableHead>Name</TableHead>
+                                <TableHead>Email</TableHead>
                                 <TableHead>Status</TableHead>
-                                <TableHead>Method</TableHead>
-                                <TableHead className="text-right">Amount</TableHead>
+                                <TableHead className="text-right">Gender</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {filteredInvoices.length > 0 ? (
-                                filteredInvoices.map((invoice) => (
-                                    <TableRow key={invoice.invoice}>
-                                        <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                                        <TableCell>{invoice.paymentStatus}</TableCell>
-                                        <TableCell>{invoice.paymentMethod}</TableCell>
-                                        <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                            {filteredUsers.length > 0 ? (
+                                filteredUsers.map((user) => (
+                                    <TableRow key={user.userId}>
+                                        <TableCell className="font-medium">{user.userId}</TableCell>
+                                        <TableCell>{user.userName}</TableCell>
+                                        <TableCell>{user.email}</TableCell>
+                                        <TableCell>
+                                            <div
+                                                className={`rounded-full flex justify-center text-white hover:bg-opacity-75 ${user.status === "Active" ? 'bg-green-400 hover:bg-green-600' : 'bg-red-400 hover:bg-red-600'
+                                                    }`}
+                                            >
+                                                {user.status}
+                                            </div>
+                                        </TableCell>
+
+                                        <TableCell className="text-right">{user.gender}</TableCell>
                                     </TableRow>
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No invoices found</TableCell>
+                                    <TableCell colSpan={5} className="text-center">No users found</TableCell>
                                 </TableRow>
                             )}
                         </TableBody>

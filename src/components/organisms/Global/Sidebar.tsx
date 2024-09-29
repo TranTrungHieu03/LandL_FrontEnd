@@ -1,16 +1,26 @@
 import { Maximize2Icon, Minimize2Icon, LogOutIcon, UserRound } from 'lucide-react'
 
-import { createContext, ReactNode, useContext, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { cn } from '@/utils/cn.ts'
 import navAdmin from '@/contants/sidebarItems.tsx'
+import { useAuth } from '@/context/authContext'
+import { ROUTES } from '@/contants/routerEndpoint'
 
 const SidebarContext = createContext<{ expanded: boolean; setActiveItem: (item: string) => void } | null>(null)
 const Sidebar = () => {
-  // const { auth, setAuth } = useAuth()
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
   const activePath = useLocation()
   const [activeItem, setActiveItem] = useState<string>(activePath.pathname)
   const [expanded, setExpanded] = useState<boolean>(true)
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setAuth({ user: undefined })
+    navigate(ROUTES.ROOT)
+  }
+
   return (
     <aside className={'h-screen'}>
       <div className={'h-full flex flex-col bg-white border-r'}>
@@ -55,10 +65,7 @@ const Sidebar = () => {
         {/* log out */}
         {/* Logout Button */}
         <div
-          onClick={() => {
-            localStorage.removeItem('accessToken');
-            // setAuth({ user: null, isAdmin: null });
-          }}
+          onClick={handleLogout}
           className={cn(
             'font-semibold leading-4 transition-all duration-1000 cursor-pointer bg-gradient-to-tr from-orange-600 to-orange-300 p-2 rounded-md flex items-center justify-start mx-3'
           )}

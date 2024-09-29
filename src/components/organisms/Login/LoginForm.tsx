@@ -35,9 +35,13 @@ const LoginForm = () => {
       const result = await authService.getUserInfo()
       if (result.success) {
         setAuth({ user: result.result?.data })
+        if (result.result?.data.roleID == 1) {
+          navigate(ROUTES.DASH_BOARD + "customer")
+        } else {
+          location?.state?.from !== undefined ? navigate(-1) : navigate(ROUTES.ROOT)
+        }
       }
       toast.success(response?.result?.message as string)
-      location?.state?.from !== undefined ? navigate(-1) : navigate(ROUTES.ROOT)
     } else {
       toast.error(response?.result?.message as string)
     }

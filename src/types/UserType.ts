@@ -10,4 +10,5 @@ export type TUser = {
   password?: string
   link: string
   otp: string
+  roleID: number
 }

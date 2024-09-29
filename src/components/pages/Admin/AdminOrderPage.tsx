@@ -1,6 +1,6 @@
 import OrderChart from "@/components/organisms/Admin/Order/OrderChart"
 import TableOrder from "@/components/organisms/Admin/Order/TableOrder"
-import PaginationItems from "@/components/organisms/Global/PaginationItems"
+import PaginationItems from "@/components/organisms/Global/PaginationSelector"
 
 
 const AdminOrderPage = () => {
@@ -13,7 +13,7 @@ const AdminOrderPage = () => {
                 <TableOrder />
             </div>
             <div className="col-span-1">
-                <PaginationItems />
+                {/* <PaginationItems /> */}
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import Miles from "@/components/organisms/Admin/Truck/Miles"
 import TableTruck from "@/components/organisms/Admin/Truck/TableTruck"
 import TruckStatus from "@/components/organisms/Admin/Truck/TruckStatus"
-import PaginationItems from "@/components/organisms/Global/PaginationItems"
+import PaginationItems from "@/components/organisms/Global/PaginationSelector"
 
 const AdminTruckPage = () => {
     return (
@@ -18,7 +18,7 @@ const AdminTruckPage = () => {
                 <TableTruck />
             </div>
             <div className="col-span-1">
-                <PaginationItems />
+                {/* <PaginationItems /> */}
             </div>
         </div>
     )
