@@ -3,7 +3,6 @@ import TableList from "@/components/organisms/Admin/Customer/TableList";
 import TypeLogin from "@/components/organisms/Admin/Customer/TypeLogin";
 import WebVisitor from "@/components/organisms/Admin/Customer/WebVisitor";
 import PaginationSelector from "@/components/organisms/Global/PaginationSelector";
-import Loading from "@/components/templates/Loading";
 import { getAllUser } from "@/services/adminService";
 import { useEffect, useState } from "react";
 

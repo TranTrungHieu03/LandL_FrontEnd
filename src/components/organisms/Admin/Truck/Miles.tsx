@@ -1,3 +1,6 @@
+import { getTruckMiles } from "@/services/adminService";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
     BarChart,
     Bar,
@@ -14,22 +17,6 @@ type DataItem = {
     name: string;
     km: number; // Change the data point from 'uv' to 'km'
 };
-
-// Updated data for 12 months of distance in kilometers
-const data: DataItem[] = [
-    { name: "Jan", km: 400 },
-    { name: "Feb", km: 300 },
-    { name: "Mar", km: 500 },
-    { name: "Apr", km: 400 },
-    { name: "May", km: 600 },
-    { name: "Jun", km: 700 },
-    { name: "Jul", km: 800 },
-    { name: "Aug", km: 900 },
-    { name: "Sep", km: 1000 },
-    { name: "Oct", km: 1100 },
-    { name: "Nov", km: 1200 },
-    { name: "Dec", km: 1300 },
-];
 
 // Function to provide introductory text based on the month
 const getIntroOfMonth = (label: string) => {
@@ -52,9 +39,23 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 const Miles = () => {
+    const [data, setData] = useState<DataItem[]>([]);
+
+    const getMilesTruck = async () => {
+        const response = await getTruckMiles();
+        if (response.success) {
+            setData(response.result?.data)
+        } else {
+            toast.error("Error in fetch data trucks miles!")
+        }
+    }
+
+    useEffect(() => {
+        getMilesTruck();
+    }, [])
     return (
         <div className="w-full h-full flex justify-center items-center">
-            <div className="w-full h-[100%]"> {/* Use full width and height */}
+            <div className="w-full h-[90%]"> {/* Use full width and height */}
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         data={data}

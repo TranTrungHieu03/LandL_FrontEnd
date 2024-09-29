@@ -8,48 +8,39 @@ import {
     TableHead,
 } from "@/components/atoms/ui/table";
 
-const invoices = [
-    {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
-    },
+type Truck = {
+    truckId: number;
+    truckName: string;
+    plateCode: string;
+    status: string;
+    manufacturer: string;
+    vehicleModel: string;
+    frameNumber: string;
+    engineNumber: string;
+}
 
-];
-const TableTruck = () => {
+// Define the Props type
+type Props = {
+    trucks: Truck[];
+}
+
+const TableTruck = ({ trucks }: Props) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    // Filter invoices based on the search query
-    const filteredInvoices = invoices.filter((invoice) =>
-        invoice.invoice.toLowerCase().includes(searchQuery.toLowerCase())
+    // Filter trucks based on the search query (searching by truckName and plateCode)
+    const filteredTrucks = trucks.filter((truck) =>
+        truck.truckName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        truck.plateCode.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
     return (
         <div className="w-full h-full">
             {/* Search Input */}
             <div className='h-[90%]'>
-                <div className=''>
+                <div className='mb-4'>
                     <input
                         type="text"
-                        placeholder="Search by invoice number..."
+                        placeholder="Search by truck name or plate code..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="p-2 border rounded w-full bg-white"
@@ -59,25 +50,40 @@ const TableTruck = () => {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">Invoice</TableHead>
+                                <TableHead>Truck Id</TableHead>
+                                <TableHead>Truck Name</TableHead>
+                                <TableHead>Plate Code</TableHead>
+                                <TableHead>Manufacturer</TableHead>
+                                <TableHead>Model</TableHead>
+                                <TableHead>FrameNumber</TableHead>
+                                <TableHead>EngineNumber</TableHead>
                                 <TableHead>Status</TableHead>
-                                <TableHead>Method</TableHead>
-                                <TableHead className="text-right">Amount</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {filteredInvoices.length > 0 ? (
-                                filteredInvoices.map((invoice) => (
-                                    <TableRow key={invoice.invoice}>
-                                        <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                                        <TableCell>{invoice.paymentStatus}</TableCell>
-                                        <TableCell>{invoice.paymentMethod}</TableCell>
-                                        <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                            {filteredTrucks.length > 0 ? (
+                                filteredTrucks.map((truck) => (
+                                    <TableRow key={truck.truckId}>
+                                        <TableCell className="font-medium">{truck.truckId}</TableCell>
+                                        <TableCell >{truck.truckName}</TableCell>
+                                        <TableCell>{truck.plateCode}</TableCell>
+                                        <TableCell>{truck.manufacturer}</TableCell>
+                                        <TableCell>{truck.vehicleModel}</TableCell>
+                                        <TableCell>{truck.frameNumber}</TableCell>
+                                        <TableCell>{truck.engineNumber}</TableCell>
+                                        <TableCell>
+                                            <div
+                                                className={`rounded-full flex justify-center text-white hover:bg-opacity-75 ${truck.status === "Active" ? 'bg-green-400 hover:bg-green-600' : 'bg-red-400 hover:bg-red-600'
+                                                    }`}
+                                            >
+                                                {truck.status}
+                                            </div>
+                                        </TableCell>
                                     </TableRow>
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No invoices found</TableCell>
+                                    <TableCell colSpan={5} className="text-center">No trucks found</TableCell>
                                 </TableRow>
                             )}
                         </TableBody>
@@ -85,7 +91,7 @@ const TableTruck = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default TableTruck
+export default TableTruck;
