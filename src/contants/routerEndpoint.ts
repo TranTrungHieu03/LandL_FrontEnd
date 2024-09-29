@@ -18,5 +18,8 @@ export enum ROUTES {
   LOGOUT = '/logout',
   PAY_OS = 'pay-os',
   //admim
-  DASH_BOARD = '/dash-board'
+  DASH_BOARD = '/dash-board/',
+  TRUCK = 'truck',
+  CUSTOMER = 'customer',
+  ORDER = 'order'
 }

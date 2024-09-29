@@ -1,4 +1,4 @@
-import { StoreIcon, Users2Icon, WatchIcon } from 'lucide-react'
+import { StoreIcon, Users2Icon, TruckIcon } from 'lucide-react'
 
 const navAdmin = [
   // {
@@ -9,21 +9,21 @@ const navAdmin = [
   // },
   {
     id: 2,
-    title: 'Watch Management',
-    path: '/watch-dashboard',
-    icon: <WatchIcon />
+    title: 'Trucks',
+    path: 'truck',
+    icon: <TruckIcon />
   },
   {
     id: 3,
-    title: 'Brand Management',
-    path: '/brand-dashboard',
-    icon: <StoreIcon />
+    title: 'Customers',
+    path: 'customer',
+    icon: <Users2Icon />
   },
   {
     id: 4,
-    title: 'Member Management',
-    path: '/member-dashboard',
-    icon: <Users2Icon />
+    title: 'Orders',
+    path: 'order',
+    icon: <StoreIcon />
   }
 ]
 

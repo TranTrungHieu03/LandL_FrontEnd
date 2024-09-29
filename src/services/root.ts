@@ -50,6 +50,7 @@ export interface ResponseProps<T = any> {
   result?: {
     message?: string
     data?: T
+    pagination?: T
   }
 }
 
