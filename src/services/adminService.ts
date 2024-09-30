@@ -27,3 +27,11 @@ export const getTruckMiles = async (year: number = 2024): Promise<ResponseProps>
 export const getTruckStatusInYear = async (year: number = 2024): Promise<ResponseProps> => {
     return await get(`Truck/GetStatusTruckInYear?year=${year}`)
 }
+
+export const getAllOrder = async (page: number): Promise<ResponseProps> => {
+    return await get(`Order/GetAllOrderForAdmin?page=${page}`)
+}
+
+export const getAllOrderInYear = async (year: number = 2024): Promise<ResponseProps> => {
+    return await get(`Order/GetTotalOrderInYear?year=${year}`)
+}

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
     Table,
     TableBody,
@@ -6,51 +7,46 @@ import {
     TableRow,
     TableHead,
 } from "@/components/atoms/ui/table";
-import { useState } from "react";
 
-const invoices = [
-    {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
-    },
+type Order = {
+    orderDetailId: number;
+    orderDetailCode: string | null;
+    reference: string | null;
+    paymentMethod: string;
+    transactionDateTime: string;
+    totalPrice: number;
+    status: string;
+    distance: string;
+    startDate: string;
+}
 
-];
+// Define the Props type
+type Props = {
+    orders: Order[];
+}
 
-const TableOrder = () => {
+const TableOrder = ({ orders }: Props) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    // Filter invoices based on the search query
-    const filteredInvoices = invoices.filter((invoice) =>
-        invoice.invoice.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // Filter orders based on the search query (searching by orderDetailId or status)
+    const filteredOrders = orders.filter((order) => {
+        const searchLower = searchQuery.toLowerCase();
+
+        // Convert orderDetailId to string to allow comparison with searchQuery
+        const matchesId = order.orderDetailId.toString().includes(searchQuery);
+        const matchesStatus = order.status.toLowerCase().includes(searchLower);
+
+        return matchesId || matchesStatus;
+    });
+
     return (
         <div className="w-full h-full">
             {/* Search Input */}
-            <div className='h-[90%]'>
-                <div className=''>
+            <div className='h-[95%]'>
+                <div>
                     <input
                         type="text"
-                        placeholder="Search by invoice number..."
+                        placeholder="Search by order ID or status..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="p-2 border rounded w-full bg-white"
@@ -60,25 +56,40 @@ const TableOrder = () => {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">Invoice</TableHead>
+                                <TableHead>Order ID</TableHead>
+                                <TableHead>Order Code</TableHead>
+                                <TableHead>Reference</TableHead>
+                                <TableHead>Payment Method</TableHead>
+                                <TableHead>Transaction Date</TableHead>
+                                <TableHead>Total Price</TableHead>
+                                <TableHead>Distance</TableHead>
                                 <TableHead>Status</TableHead>
-                                <TableHead>Method</TableHead>
-                                <TableHead className="text-right">Amount</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {filteredInvoices.length > 0 ? (
-                                filteredInvoices.map((invoice) => (
-                                    <TableRow key={invoice.invoice}>
-                                        <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                                        <TableCell>{invoice.paymentStatus}</TableCell>
-                                        <TableCell>{invoice.paymentMethod}</TableCell>
-                                        <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                            {filteredOrders.length > 0 ? (
+                                filteredOrders.map((order) => (
+                                    <TableRow key={order.orderDetailId}>
+                                        <TableCell className="font-medium">{order.orderDetailId}</TableCell>
+                                        <TableCell>{order.orderDetailCode || "N/A"}</TableCell>
+                                        <TableCell>{order.reference || "N/A"}</TableCell>
+                                        <TableCell>{order.paymentMethod}</TableCell>
+                                        <TableCell>{new Date(order.transactionDateTime).toLocaleDateString()}</TableCell>
+                                        <TableCell>{order.totalPrice}</TableCell>
+                                        <TableCell>{order.distance}</TableCell>
+                                        <TableCell>
+                                            <div
+                                                className={`rounded-full flex justify-center text-white hover:bg-opacity-75 ${order.status === "Completed" ? 'bg-green-400 hover:bg-green-600' : 'bg-red-400 hover:bg-red-600'
+                                                    }`}
+                                            >
+                                                {order.status}
+                                            </div>
+                                        </TableCell>
                                     </TableRow>
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="text-center">No invoices found</TableCell>
+                                    <TableCell colSpan={8} className="text-center">No orders found</TableCell>
                                 </TableRow>
                             )}
                         </TableBody>
@@ -86,7 +97,7 @@ const TableOrder = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default TableOrder
+export default TableOrder;
