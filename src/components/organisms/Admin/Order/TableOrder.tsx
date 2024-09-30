@@ -13,7 +13,7 @@ type Order = {
     orderDetailCode: string | null;
     reference: string | null;
     paymentMethod: string;
-    transactionDateTime: string;
+    transactionDateTime: string | null;
     totalPrice: number;
     status: string;
     distance: string;
@@ -61,6 +61,7 @@ const TableOrder = ({ orders }: Props) => {
                                 <TableHead>Reference</TableHead>
                                 <TableHead>Payment Method</TableHead>
                                 <TableHead>Transaction Date</TableHead>
+                                <TableHead>Order Date</TableHead>
                                 <TableHead>Total Price</TableHead>
                                 <TableHead>Distance</TableHead>
                                 <TableHead>Status</TableHead>
@@ -73,10 +74,11 @@ const TableOrder = ({ orders }: Props) => {
                                         <TableCell className="font-medium">{order.orderDetailId}</TableCell>
                                         <TableCell>{order.orderDetailCode || "N/A"}</TableCell>
                                         <TableCell>{order.reference || "N/A"}</TableCell>
-                                        <TableCell>{order.paymentMethod}</TableCell>
-                                        <TableCell>{new Date(order.transactionDateTime).toLocaleDateString()}</TableCell>
-                                        <TableCell>{order.totalPrice}</TableCell>
-                                        <TableCell>{order.distance}</TableCell>
+                                        <TableCell>{order.paymentMethod || "N/A"}</TableCell>
+                                        <TableCell>{order.transactionDateTime ? new Date(order.transactionDateTime).toLocaleDateString() : "N/A"}</TableCell>
+                                        <TableCell>{order.startDate ? new Date(order.startDate).toLocaleDateString() : "N/A"}</TableCell>
+                                        <TableCell>{order.totalPrice || "N/A"}</TableCell>
+                                        <TableCell>{order.distance || "N/A"}</TableCell>
                                         <TableCell>
                                             <div
                                                 className={`rounded-full flex justify-center text-white hover:bg-opacity-75 ${order.status === "Completed" ? 'bg-green-400 hover:bg-green-600' : 'bg-red-400 hover:bg-red-600'
@@ -89,7 +91,7 @@ const TableOrder = ({ orders }: Props) => {
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={8} className="text-center">No orders found</TableCell>
+                                    <TableCell colSpan={9} className="text-center">No orders found</TableCell>
                                 </TableRow>
                             )}
                         </TableBody>

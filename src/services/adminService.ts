@@ -35,3 +35,7 @@ export const getAllOrder = async (page: number): Promise<ResponseProps> => {
 export const getAllOrderInYear = async (year: number = 2024): Promise<ResponseProps> => {
     return await get(`Order/GetTotalOrderInYear?year=${year}`)
 }
+
+export const getAllOrderAmountInYear = async (year: number = 2024): Promise<ResponseProps> => {
+    return await get(`Order/GetAmountInYear?year=${year}`)
+}

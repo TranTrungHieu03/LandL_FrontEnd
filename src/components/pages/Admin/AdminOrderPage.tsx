@@ -1,3 +1,4 @@
+import OrderAmount from "@/components/organisms/Admin/Order/OrderAmount";
 import OrderChart from "@/components/organisms/Admin/Order/OrderChart"
 import TableOrder from "@/components/organisms/Admin/Order/TableOrder"
 import PaginationItems from "@/components/organisms/Global/PaginationSelector"
@@ -46,8 +47,13 @@ const AdminOrderPage = () => {
     }, [page]); // Use page as the dependency
     return (
         <div className="grid grid-cols-1 gap-3 p-4 w-full h-full overflow-hidden">
-            <div className="bg-white col-span-1 rounded h-full w-full">
-                <OrderChart />
+            <div className="col-span-1 grid grid-cols-2 w-full h-full gap-3">
+                <div className="bg-white col-span-1 rounded h-full w-full">
+                    <OrderChart />
+                </div>
+                <div className="bg-white col-span-1 rounded h-full w-full">
+                    <OrderAmount />
+                </div>
             </div>
             <div className="bg-white col-span-1 rounded h-full w-full">
                 <TableOrder orders={orders} />

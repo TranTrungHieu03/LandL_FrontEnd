@@ -26,7 +26,7 @@ const OrderChart = () => {
         <div className="w-full h-full flex justify-center items-center">
             <div className="w-11/12 h-[95%]">
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={data} margin={{ top: 10, right: 10, left: 10, bottom: 5 }}>
+                    <LineChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
