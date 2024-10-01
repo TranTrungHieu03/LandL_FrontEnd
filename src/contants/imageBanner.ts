@@ -16,15 +16,15 @@ export const IMAGES_SIGNUP = [
 export const IMAGES_LOGIN = [
   {
     id: 1,
-    url: '/src/assets/images/1-01.jpg'
+    url: '/src/assets/images/login/regre.jpg'
   },
   {
     id: 2,
-    url: '/delivery2.jfif'
+    url: '/src/assets/images/login/scene-with-photorealistic-logistics-operations-proceedings.jpg'
   },
   {
     id: 3,
-    url: '/delivery3.jfif'
+    url: '/src/assets/images/login/1-01.jpg'
   }
 ]
 export const IMAGES_FORGOTPASSWORD = [

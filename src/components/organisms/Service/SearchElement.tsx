@@ -58,7 +58,7 @@ const SearchElement = () => {
     const lngLatDestination: LngLat = destinationLocation['results'][0]['geometry']['location']
 
     const distanceQuery = await getDirection({ source: lngLatSource, destination: lngLatDestination })
-    const distance = distanceQuery['routes'][0]['legs'][0]['distance']['value'] as number
+    const distance = distanceQuery['routes'][0]['legs'][0]['distance']['value'] / 1000 as number
     const expectedData: SearchProductWithDistanceType = {
       ...data,
       distance,

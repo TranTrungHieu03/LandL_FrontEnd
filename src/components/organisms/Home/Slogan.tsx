@@ -9,7 +9,7 @@ const Slogan = () => {
       className={'flex flex-col gap-10 md:w-2/3 sm:w-full  mx-auto text-white  mt-20 justify-center items-center my-10'}
     >
       <div className={'flex flex-col gap-6 justify-center items-center'}>
-        <div className={' flex flex-col sm:text-4xl  md:text-[60px] font-black tracking-tight my-auto gap-4'}>
+        <div className={' flex flex-col sm:text-4xl  md:text-[60px] font-black tracking-tight my-auto gap-4 justify-center items-center'}>
           <p className={'text-orangeTheme'}>Leopard Lorry</p>
           <p className={''}>"Leap and Lead"</p>
         </div>
