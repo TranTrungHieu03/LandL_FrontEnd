@@ -1,23 +1,26 @@
 import { STEPS_USE_WEB } from '@/contants/stepUseWeb.ts'
 import { cn } from '@/utils/cn.ts'
+import { Check } from 'lucide-react'
 
 const TheWayToUseWeb = () => {
   return (
-    <div className={"flex flex-col items-center gap-y-6 py-6 w-full h-fit bg-cover bg-[url('/home-2.png')]"}>
-      <p className={'uppercase text-4xl font-bold text-orangeTheme text-center'}>How to use our service? </p>
-      <div className={'flex flex-col gap-y-2 justify-center md:w-1/3 sm:w-3/4 '}>
-        {STEPS_USE_WEB.map((step) => (
-          <div
-            key={step.id}
-            className={cn(
-              'flex flex-col gap-1 px-4 py-3 rounded  ',
-              step.id % 2 !== 0 ? 'bg-darkTheme text-white' : 'text-black bg-slate-100'
-            )}
-          >
-            <p className={'font-semibold'}>Step {step.id}</p>
-            <p>{step.content}</p>
-          </div>
-        ))}
+    <div className={'grid md:grid-cols-10 w-full h-fit mt-20 py-3'}>
+      <div className={'md:col-span-6 p-2'}></div>
+      <div className={'md:col-span-4'}>
+        <p className={'text-[50px] font-black text-orangeTheme'}>How to use our service? </p>
+        <div className={'flex flex-col gap-y-1 justify-center '}>
+          {STEPS_USE_WEB.map((step) => (
+            <div key={step.id} className={'flex gap-2  py-1 rounded '}>
+              <div>
+                <Check className={'text-orangeTheme'} />{' '}
+              </div>
+              <div className={cn('flex flex-col gap-1 px-4  ')}>
+                <p className={'font-semibold'}>Step {step.id}</p>
+                <p>{step.content}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

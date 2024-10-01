@@ -6,8 +6,13 @@ import HomePage from '@/components/pages/Home/HomePage.tsx'
 const HomeLayout = () => {
   return (
     <div>
-      <div className={"bg-[url('/bg-home.png')] bg-cover bg-center w-full h-[700px]"}>
+      <div
+        className={
+          "bg-[url('/bg-home.png')] bg-cover bg-center w-full h-[700px] rounded-bl-[200px]  rounded-br-[200px]"
+        }
+      >
         <Header />
+
         <Slogan />
       </div>
       <HomePage />

@@ -1,13 +1,13 @@
-import { CalendarClock, FolderKanban, GlobeLock, Users } from 'lucide-react'
+import { FolderKanban, GlobeLock, Users } from 'lucide-react'
 
 export const STATISTICS = [
-  {
-    id: 1,
-    data: 2024,
-    content: 'year of establishment',
-    icon: <CalendarClock size={28} />,
-    isMore: false
-  },
+  // {
+  //   id: 1,
+  //   data: 2024,
+  //   content: 'year of establishment',
+  //   icon: <CalendarClock size={28} />,
+  //   isMore: false
+  // },
   {
     id: 2,
     data: 200,

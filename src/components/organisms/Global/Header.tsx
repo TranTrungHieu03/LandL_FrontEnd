@@ -22,9 +22,9 @@ const Header = ({ classContent }: HeaderProps) => {
   }, [path])
   return (
     <div className={cn('bg-transparent px-5 h-19 py-2 justify-between flex text-white', classContent)}>
-      <div className={'flex gap-2 items-center backdrop-blur-lg cursor-pointer'} onClick={() => navigate(ROUTES.ROOT)}>
+      <div className={'flex gap-2 items-center cursor-pointer'} onClick={() => navigate(ROUTES.ROOT)}>
         <img src={'/logoLL.png'} alt={'logo'} className={'w-14 h-14'} />
-        <span className={'font-black tracking-tight text-orangeTheme text-lg'}>L&L COMPANY</span>
+        <span className={'font-bold tracking-tight text-orangeTheme text-lg'}>L&L COMPANY</span>
       </div>
       <div className={'flex items-center gap-8'}>
         <div className={'flex md:gap-6'}>
@@ -32,8 +32,8 @@ const Header = ({ classContent }: HeaderProps) => {
             <Link
               to={item.path}
               className={cn(
-                'flex text-center font-normal cursor-pointer hover:scale-105 hover:font-semibold',
-                path && path.pathname === item.path && 'text-orangeTheme font-semibold'
+                'flex text-center font-medium cursor-pointer hover:scale-105 px-3 py-1 rounded',
+                path && path.pathname === item.path && 'bg-orangeTheme '
               )}
               key={item.id}
             >
@@ -44,12 +44,14 @@ const Header = ({ classContent }: HeaderProps) => {
         <Link
           to={ROUTES.CREATE_ORDER}
           className={cn(
-            'flex gap-1 text-center backdrop-blur-lg font-normal cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1',
+            'flex gap-1 text-center backdrop-blur-lg font-medium  cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1',
             path && path.pathname === ROUTES.CREATE_ORDER && 'text-orangeTheme font-semibold border-orangeTheme/60'
           )}
         >
           Create order
         </Link>
+      </div>
+      <div>
         {auth?.user ? (
           <div className={'flex gap-2 items-center'}>
             <UserDropdown
