@@ -1,9 +1,15 @@
 import { Separator } from '@/components/atoms/ui/separator.tsx'
 import { Clock, Mail, Phone } from 'lucide-react'
-
+import red_truck from "../../../assets/images/home/red-truck.jpg"
 const Footer = () => {
   return (
-    <div className={'bg-darkTheme text-white px-20 py-5 text-sm mt-auto '}>
+    <div
+      style={{
+        backgroundImage: `url(${red_truck})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+      className={' text-white px-20 py-5 text-sm mt-auto '}>
       <div className={'flex gap-8 justify-between flex-wrap'}>
         <div className={'flex gap-2 items-center px-8'}>
           <img src={'/logoLL.png'} alt={'logo'} className={'w-28 h-28'} loading={'lazy'} />
