@@ -6,9 +6,9 @@ const FaqLine = () => {
   return (
     <div className={'grid md:grid-cols-2 sm:grid-cols-1 w-full py-8'}>
       <FrequentAskedQuestion />
-      <div className={'items-center flex relative'}>
-        <img src={'/home-5.png'} className={'w-96 object-cover ml-auto'} alt={'/home-5.png'} loading={'lazy'} />
-        <div className={'flex flex-col gap-4 bg-darkTheme text-white absolute left-12 p-6 w-[400px]'}>
+      <div className={'items-center justify-center flex relative'}>
+        <img src={'/home-5.png'} className={'w-96 object-cover ml-auto rounded-3xl'} alt={'/home-5.png'} />
+        <div className={'flex flex-col gap-4 bg-darkTheme text-white absolute left-12 p-6 w-[400px] rounded-md'}>
           <div className={'bg-orangeTheme text-sm font-semibold px-2 w-fit py-1'}>Let's talk</div>
           <p className={'font-semibold text-lg'}>You need any help? Get Free Consultation</p>
           <div className={'flex gap-3'}>

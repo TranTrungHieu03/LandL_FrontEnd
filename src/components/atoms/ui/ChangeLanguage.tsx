@@ -15,8 +15,11 @@ const ChangeLanguage = () => {
   }
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={'bg-transparent  py-2 outline-none'}>
-        Change language
+      <DropdownMenuTrigger className={'bg-transparent  py-0 outline-nones'}>
+        <div
+          className={'flex gap-1 text-center backdrop-blur-sm font-medium  cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1'}> Change
+          language
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem className={'flex gap-2'} onClick={() => changeLanguage('vi')}>

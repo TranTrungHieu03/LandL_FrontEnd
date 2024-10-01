@@ -4,7 +4,7 @@ const TrustLine = () => {
   return (
     <div
       className={
-        'bg-[url(/home-6.png)] bg-cover w-full px-20  h-[400px] text-white py-10 flex flex-col gap-4 text-start justify-center'
+        'bg-[url(/home-6.png)] bg-cover w-full px-20  h-[400px] text-white py-10 flex  gap-4 text-start justify-center'
       }
     >
       <p className={'text-4xl tracking-tight uppercase  font-semibold'}>Reach your destination 100% sure and safe</p>

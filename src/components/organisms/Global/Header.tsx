@@ -48,7 +48,7 @@ const Header = ({ classContent }: HeaderProps) => {
         <Link
           to={ROUTES.CREATE_ORDER}
           className={cn(
-            'flex gap-1 text-center backdrop-blur-lg font-medium  cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1',
+            'flex gap-1 text-center backdrop-blur-sm font-medium  cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1',
             path && path.pathname === ROUTES.CREATE_ORDER && 'text-orangeTheme font-semibold border-orangeTheme/60'
           )}
         >
@@ -63,7 +63,7 @@ const Header = ({ classContent }: HeaderProps) => {
               avatar={auth?.user?.avatar ?? generateImage(auth?.user?.userName ?? '')}
               handleChange={() => {}}
             />
-            <div className={'flex flex-col md:w-30'}>
+            <div className={'flex flex-col md:w-34'}>
               <span className={'truncate text-sm font-semibold'}>{auth?.user?.userName}</span>
               <Badge className={'bg-orangeTheme hover:bg-orangeTheme/60 w-fit'}>Basic</Badge>
             </div>

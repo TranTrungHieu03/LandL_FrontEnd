@@ -8,7 +8,7 @@ interface AccordionLineProps {
 const AccordionLine = ({ id, title, content }: AccordionLineProps) => {
   return (
     <AccordionItem value={id.toString()} className={' items-center space-x-2 w-full'}>
-      <AccordionTrigger className={'px-2 py-4 decoration-transparent'}>{title}</AccordionTrigger>
+      <AccordionTrigger className={'px-2 py-4 decoration-transparent text-start'}>{title}</AccordionTrigger>
       <AccordionContent className={'p-2'}>
         <p className={'font-black'}>Answer:</p>
         <p>{content}</p>

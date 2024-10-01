@@ -1,16 +1,30 @@
 import { Separator } from '@/components/atoms/ui/separator.tsx'
 import { Clock, Mail, Phone } from 'lucide-react'
-import red_truck from "../../../assets/images/home/red-truck.jpg"
+import red_truck from '../../../assets/images/home/red-truck.jpg'
+import { Button } from '@/components/atoms/ui/button.tsx'
+
 const Footer = () => {
   return (
     <div
       style={{
         backgroundImage: `url(${red_truck})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundPosition: 'center'
       }}
-      className={' text-white px-20 py-5 text-sm mt-auto '}>
-      <div className={'flex gap-8 justify-between flex-wrap'}>
+      className={' text-white px-20 py-5 text-sm mt-auto '}
+    >
+      <div className={' flex justify-between items-center border-b'}>
+        <div>
+          <p className={'text-4xl tracking-tight capitalize  font-bold'}>
+            <span className={'text-orangeTheme'}>Reach your destination</span> 100% sure and safe
+          </p>
+          <p className={'text-lg'}>We will take care of your chemicals and deliver them safe and on time</p>
+        </div>
+        <Button className={'bg-orangeTheme hover:bg-orangeTheme/90 rounded-md uppercase tracking-tight w-fit p-3 '}>
+          Request a quote
+        </Button>
+      </div>
+      <div className={'flex gap-8 justify-between flex-wrap pt-4'}>
         <div className={'flex gap-2 items-center px-8'}>
           <img src={'/logoLL.png'} alt={'logo'} className={'w-28 h-28'} loading={'lazy'} />
           <div className={'flex flex-col'}>
