@@ -5,6 +5,7 @@ import Auth0ProviderWithNavigate from '@/auth/Auth0ProviderWithNavigate.tsx'
 import { AuthProvider } from '@/context/authContext.tsx'
 import AppRoutes from '@/router.tsx'
 import { BrowserRouter as Router } from 'react-router-dom'
+import '@/i18next/i18n.ts'
 
 function App() {
   return (

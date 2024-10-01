@@ -8,18 +8,22 @@ import UserDropdown from '@/components/organisms/Global/UserDropdown.tsx'
 import generateImage from '@/utils/generateAvatar.ts'
 import { Button } from '@/components/atoms/ui/button.tsx'
 import { useAuth } from '@/context/authContext.tsx'
+import { useTranslation } from 'react-i18next'
+import ChangeLanguage from '@/components/atoms/ui/ChangeLanguage.tsx'
 
 interface HeaderProps {
   classContent?: string
 }
 
 const Header = ({ classContent }: HeaderProps) => {
+  const { t } = useTranslation()
   const path = useLocation()
   const navigate = useNavigate()
   const { auth } = useAuth()
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [path])
+
   return (
     <div className={cn('bg-transparent px-5 h-19 py-2 justify-between flex text-white', classContent)}>
       <div className={'flex gap-2 items-center cursor-pointer'} onClick={() => navigate(ROUTES.ROOT)}>
@@ -37,7 +41,7 @@ const Header = ({ classContent }: HeaderProps) => {
               )}
               key={item.id}
             >
-              {item.title}
+              {t(item.title)}
             </Link>
           ))}
         </div>
@@ -48,9 +52,10 @@ const Header = ({ classContent }: HeaderProps) => {
             path && path.pathname === ROUTES.CREATE_ORDER && 'text-orangeTheme font-semibold border-orangeTheme/60'
           )}
         >
-          Create order
+          {t('Create order')}
         </Link>
       </div>
+      <ChangeLanguage />
       <div>
         {auth?.user ? (
           <div className={'flex gap-2 items-center'}>
