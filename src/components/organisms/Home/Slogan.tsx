@@ -1,8 +1,10 @@
 import { Button } from '@/components/atoms/ui/button.tsx'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/contants/routerEndpoint.ts'
+import { useTranslation } from 'react-i18next'
 
 const Slogan = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   return (
     <div
@@ -15,14 +17,10 @@ const Slogan = () => {
           }
         >
           <p className={'text-orangeTheme'}>Leopard Lorry</p>
-          <p className={''}>"Leap and Lead"</p>
+          <p className={''}>"{t('Leap and Lead')}"</p>
         </div>
 
-        <p className={'font-medium'}>
-          Welcome to Leopard Lorry - a groundbreaking sharing economy platform in the Vietnamese transportation
-          industry. With 5 years of experience in the content field , we are confident to bring you a smart, efficient
-          and economical transportation experience.{' '}
-        </p>
+        <p className={'font-medium'}>{t('ContentBanner')}</p>
       </div>
       <Button
         className={
@@ -30,7 +28,7 @@ const Slogan = () => {
         }
         onClick={() => navigate(ROUTES.CREATE_ORDER)}
       >
-        Create Order
+        {t('Create order')}
       </Button>
     </div>
   )

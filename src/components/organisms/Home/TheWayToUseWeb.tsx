@@ -4,9 +4,11 @@ import { CalendarClock, Check } from 'lucide-react'
 import redLineImage from '../../../assets/images/home/red-line.jpg' // Placeholder for the second image
 import greenTruckImage from '../../../assets/images/home/truck-green.jpg' // Placeholder for the third image
 import storageImage from '../../../assets/images/home/storage.jpg'
-import StatisticElement from '@/components/atoms/StatisticElement.tsx' // Placeholder for the fourth image
+import StatisticElement from '@/components/atoms/StatisticElement.tsx'
+import { useTranslation } from 'react-i18next' // Placeholder for the fourth image
 
 const TheWayToUseWeb = () => {
+  const { t } = useTranslation()
   return (
     <div className={'grid md:grid-cols-10 w-full h-fit mt-20 py-3'}>
       <div className={'md:col-span-6 p-2 md:pl-24'}>
@@ -32,7 +34,7 @@ const TheWayToUseWeb = () => {
       </div>
 
       <div className={'md:col-span-4 p-4'}>
-        <p className={'text-[30px] font-black'}>How to use our service?</p>
+        <p className={'text-[30px] font-black'}>{t('How to use our service?')}</p>
         <div className={'flex flex-col gap-y-1 justify-center'}>
           {STEPS_USE_WEB.map((step) => (
             <div key={step.id} className={'flex gap-2 py-1 rounded'}>
@@ -40,8 +42,10 @@ const TheWayToUseWeb = () => {
                 <Check className={'text-orangeTheme'} />
               </div>
               <div className={cn('flex flex-col gap-1 px-4')}>
-                <p className={'font-semibold'}>Step {step.id}</p>
-                <p>{step.content}</p>
+                <p className={'font-semibold'}>
+                  {t('Step')} {step.id}
+                </p>
+                <p>{t(step.content)}</p>
               </div>
             </div>
           ))}

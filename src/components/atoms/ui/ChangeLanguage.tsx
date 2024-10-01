@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { locales } from '@/i18next/i18n.ts'
 
 const ChangeLanguage = () => {
-  const { i18n } = useTranslation()
+  const { i18n,t } = useTranslation()
   console.log(locales[i18n.language as keyof typeof locales])
   const changeLanguage = (lng: 'en' | 'vi') => {
     i18n.changeLanguage(lng)
@@ -17,16 +17,15 @@ const ChangeLanguage = () => {
     <DropdownMenu>
       <DropdownMenuTrigger className={'bg-transparent  py-0 outline-nones'}>
         <div
-          className={'flex gap-1 text-center backdrop-blur-sm font-medium  cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1'}> Change
-          language
+          className={'flex gap-1 text-center backdrop-blur-sm font-medium  cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1'}> {t('Change language')}
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem className={'flex gap-2'} onClick={() => changeLanguage('vi')}>
-          Tieng Viet
+          {t('Vietnamese')}
         </DropdownMenuItem>
         <DropdownMenuItem className={'flex gap-2'} onClick={() => changeLanguage('en')}>
-          Tieng Anh
+          {t('English')}
         </DropdownMenuItem>
       
       </DropdownMenuContent>
