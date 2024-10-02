@@ -17,7 +17,7 @@ const HomeLayout = () => {
         <Header />
         <Slogan />
         <div className={'absolute flex flex-col gap-2 right-2  md:top-64 backdrop-blur-lg bg-transparent'}>
-          <Link to={''} className={'bg-slate-50 p-2 rounded-full'}>
+          <Link to={'https://www.tiktok.com/@leopard.lorry'} className={'bg-slate-50 p-2 rounded-full'}>
             <img src={'/icons8-tiktok-96.png'} alt={'tiktok-logo'} className='w-6 ' />
           </Link>
           <Link to={'https://www.facebook.com/leopardlorry'} className={'bg-slate-50 p-2 rounded-full'}>
