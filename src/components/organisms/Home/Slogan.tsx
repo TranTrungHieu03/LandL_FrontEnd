@@ -20,7 +20,7 @@ const Slogan = () => {
           <p className={''}>"{t('Leap and Lead')}"</p>
         </div>
 
-        <p className={'font-medium text-center md:text-md sm:text-sm'}>{t('ContentBanner')}</p>
+        <p className={'font-medium text-center md:text-md'}>{t('ContentBanner')}</p>
       </div>
       <Button
         className={
