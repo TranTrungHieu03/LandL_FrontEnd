@@ -58,7 +58,7 @@ const SearchElement = () => {
     const lngLatDestination: LngLat = destinationLocation['results'][0]['geometry']['location']
 
     const distanceQuery = await getDirection({ source: lngLatSource, destination: lngLatDestination })
-    const distance = distanceQuery['routes'][0]['legs'][0]['distance']['value'] / 1000 as number
+    const distance = (distanceQuery['routes'][0]['legs'][0]['distance']['value'] / 1000) as number
     const expectedData: SearchProductWithDistanceType = {
       ...data,
       distance,
@@ -91,8 +91,8 @@ const SearchElement = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className={'grid grid-cols-6  gap-x-4 gap-y-4 border rounded pt-6 pb-3 px-3 bg-slate-200'}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className={'md:w-2/3 bg-white backdrop-blur rounded-md'}>
+        <div className={'md:w-full  grid grid-cols-6  gap-x-4 gap-y-4 border  rounded-md py-8 px-3  '}>
           <SearchInput
             name={'from'}
             form={form}

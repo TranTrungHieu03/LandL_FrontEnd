@@ -14,12 +14,14 @@ import { useAuth } from '@/context/authContext.tsx'
 interface UserDropdownProps {
   avatar: string
   handleChange: () => void
+  onHide: () => void
 }
 
-const UserDropdown = ({ avatar, handleChange }: UserDropdownProps) => {
+const UserDropdown = ({ avatar, handleChange, onHide }: UserDropdownProps) => {
   const navigate = useNavigate()
   const { setAuth } = useAuth()
   const handleLogout = () => {
+    onHide()
     localStorage.clear()
     handleChange()
     setAuth({ user: undefined })
@@ -33,11 +35,23 @@ const UserDropdown = ({ avatar, handleChange }: UserDropdownProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
-        <DropdownMenuItem className={'flex gap-2'} onClick={() => navigate(ROUTES.PROFILE)}>
+        <DropdownMenuItem
+          className={'flex gap-2'}
+          onClick={() => {
+            navigate(ROUTES.PROFILE)
+            onHide()
+          }}
+        >
           <UserPen strokeWidth={2} size={20} />
           <span>My Profile</span>
         </DropdownMenuItem>
-        <DropdownMenuItem className={'flex gap-2'} onClick={() => navigate(ROUTES.MY_ORDER)}>
+        <DropdownMenuItem
+          className={'flex gap-2'}
+          onClick={() => {
+            navigate(ROUTES.MY_ORDER)
+            onHide()
+          }}
+        >
           <Truck strokeWidth={2} size={20} />
           <span>My Order</span>
         </DropdownMenuItem>

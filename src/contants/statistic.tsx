@@ -10,21 +10,21 @@ export const STATISTICS = [
   // },
   {
     id: 2,
-    data: 200,
+    data: 6,
     content: 'team members',
     icon: <Users size={28} />,
     isMore: true
   },
   {
     id: 3,
-    data: 10,
+    data: 2,
     content: 'successfully project',
     icon: <FolderKanban size={28} />,
     isMore: true
   },
   {
     id: 4,
-    data: 3,
+    data: 1,
     content: 'Global partners',
     icon: <GlobeLock size={28} />,
     isMore: true

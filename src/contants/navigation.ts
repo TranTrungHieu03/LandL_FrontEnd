@@ -11,7 +11,7 @@ export const NAVIGATIONS = [
   // },
   {
     id: 3,
-    title: 'Cost',
+    title: 'Cost Estimate',
     path: '/cost'
   },
   {

@@ -1,35 +1,34 @@
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@/components/atoms/ui/dropdown-menu.tsx'
 import { useTranslation } from 'react-i18next'
 import { locales } from '@/i18next/i18n.ts'
+import { useEffect, useState } from 'react'
+import { ChevronDown } from 'lucide-react'
+import { isMobile } from 'react-device-detect'
+import { cn } from '@/utils/cn.ts'
 
 const ChangeLanguage = () => {
-  const { i18n,t } = useTranslation()
+  const { i18n } = useTranslation()
+  const [value, setValue] = useState(false)
   console.log(locales[i18n.language as keyof typeof locales])
-  const changeLanguage = (lng: 'en' | 'vi') => {
-    i18n.changeLanguage(lng)
+  const changeLanguage = () => {
+    if (value) {
+      i18n.changeLanguage('vi')
+    } else {
+      i18n.changeLanguage('en')
+    }
+    
   }
+  useEffect(() => {
+    changeLanguage()
+  }, [value])
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className={'bg-transparent  py-0 outline-nones'}>
-        <div
-          className={'flex gap-1 text-center backdrop-blur-sm font-medium  cursor-pointer  hover:text-orangeTheme border rounded px-2 py-1'}> {t('Change language')}
-        </div>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuItem className={'flex gap-2'} onClick={() => changeLanguage('vi')}>
-          {t('Vietnamese')}
-        </DropdownMenuItem>
-        <DropdownMenuItem className={'flex gap-2'} onClick={() => changeLanguage('en')}>
-          {t('English')}
-        </DropdownMenuItem>
-      
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div onClick={() => setValue(!value)}
+         className={cn('cursor-pointer flex gap-1 text-center p-2 font-medium ', isMobile ? 'items-start justify-start' : 'items-center justify-center')}>
+      {value ? 'VN' : 'EN'}
+      <span>
+        <ChevronDown size={15} />
+      </span>
+    </div>
+  
   )
 }
 

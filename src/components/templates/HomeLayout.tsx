@@ -7,12 +7,12 @@ import { Link } from 'react-router-dom'
 
 const HomeLayout = () => {
   return (
-    <div>
+    <div className={'relative h-full'}>
       <div
         style={{
           backgroundImage: `url(${bgHome})`
         }}
-        className='bg-cover relative bg-center w-full h-[700px] rounded-bl-[200px] rounded-br-[200px]'
+        className='bg-cover bg-center h-[700px] '
       >
         <Header />
         <Slogan />

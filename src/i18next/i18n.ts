@@ -58,11 +58,19 @@ const resources = {
       a4: '"Bao" applies strict safety standards and continuously monitors the journey of goods, with a cargo safety rate of 99.8%, ensuring that your goods are always in the best condition.',
 
       q5: "How much does it cost to use Leopard Lorry's service?",
-      a5: 'The cost depends on the characteristics of each shipment, but "Bao" is committed to providing the most competitive and transparent prices. Customers can receive a quick quote via the app or website.'
+      a5: 'The cost depends on the characteristics of each shipment, but "Bao" is committed to providing the most competitive and transparent prices. Customers can receive a quick quote via the app or website.',
+      safe: 'Safe',
+      getQuote: 'Get a quote',
+      fast: 'Fast',
+      global: 'Global Forwarding'
     }
   },
   vi: {
     translation: {
+      global: 'Toàn cầu',
+      fast: 'Nhanh chóng',
+      getQuote: 'Nhận báo giá',
+      safe: 'An toàn',
       q3: 'Làm thế nào để doanh nghiệp tham gia vào nền tảng của Leopard Lorry?',
       a3: 'Doanh nghiệp có thể đăng ký trực tuyến qua website của "Báo", sau đó sẽ được hướng dẫn chi tiết để bắt đầu. Hiện tại, đã có hơn 50 doanh nghiệp sẵn sàng tham gia và hài lòng với dịch vụ.',
 
